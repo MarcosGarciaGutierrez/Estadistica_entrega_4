@@ -1,0 +1,545 @@
+---
+title: "Entrega 4"
+author: "Marcos García Gutiérrez"
+date: today
+toc: true
+toc_float: true
+toc_depth: 4
+
+number_sections: false
+highlight: tango
+fig.align: center
+fig.cap: center
+format:
+  html:
+    include-after-body: gitcus.html
+    html-math-method: katex
+    code-tools: true
+    self-contained: true
+execute:
+  warning: false
+nocite: "@*"
+bibliography: bibliografia.bib
+project:
+  type: website
+
+website:
+  title: "Mi sitio"
+  search: true
+include-after-body: assets/custom-ui.Rhtml
+---
+  
+::: {.cell}
+<style>
+p {
+  text-align: justify;
+}
+</style>
+:::
+
+
+
+
+
+# Introduccióna
+
+![](/imagenes/descargar)
+
+
+En esta entrega se realiza un estudio sistemático de los factores que podrían influir en el tiempo de vuelo de los helicópteros de papel. El objetivo principal es identificar qué variables de diseño ejercen un efecto significativo sobre el rendimiento aerodinámico y cuantificar la magnitud de dichos efectos mediante técnicas de diseño factorial.
+
+El comportamiento de un helicóptero de papel depende de numerosos factores físicos y estructurales. En este caso, se han seleccionado los siguientes como variables experimentales:
+
+* A: Largo de Alas
+
+* B: Alto Rotor
+
+* C: Ancho Rotor
+ 
+* D: Alto Cuerpo
+
+* E: Ancho Cuerpo
+
+* F: Clip
+
+* G: Gramaje Papel
+
+* H: Celo Cuerpo
+
+Los datos principales provienen del grupo [P.IV](https://docs.google.com/spreadsheets/d/1SjgBZUapjLQPmZ8jTGGGw26hlpsfCv4fMGDDYE59fMs/edit?gid=0#gid=0) quienes realizaron los ensayos en el edificio Sabatini del campus Fábrica de Armas (Toledo). Los helicópteros se diseñaron, cortaron y lanzaron de forma aleatorizada para minimizar sesgos y garantizar la validez de las conclusiones.
+
+
+
+A lo largo de esta práctica se aplicarán distintos enfoques de análisis factorial, desde diseños completos hasta fraccionados, con y sin bloques o réplicas experimentales, con el fin de evaluar la robustez de los resultados y optimizar los recursos experimentales disponibles.
+
+Para el desarrollo del análisis se emplean las siguientes librerías de R:
+```{r}
+#| echo: true
+#| results: "hide"
+#| message: false
+#| warning: false
+library(grid)
+library(conf.design)
+library(DoE.base)
+library(FrF2)
+
+```
+@TOY
+
+
+
+# Analisis factorial completo
+
+Para empezar se realiza un análisis de tres factores A(largo de alas), C(ancho de rotor) y F(con clip o sin clip).
+
+
+## Experimento del grupo P.IV
+
+En este experimento se dejaron caer 8 helicópteros en los cuales se fueron mezclando los diferentes factores a estudiar. Los helicopteros se cortaron en orden aleatorio y no se volaron en un orden estándar, con el fin de evitar sesgos en los resultados. Los datos que se obtuvieron son los siguientes:
+
+```{r }
+Diseño <- fac.design(2, 3, randomize = F, 
+                   factor.names = list(a = c(-1, 1), c = c(-1, 1), f = c(-1, 1)))
+TiempoP4 <- c(5.26,5.24,5.29,7.45,6.1,6.76,4.75,6) 
+Tiempo <- TiempoP4
+(DiseñoR <- add.response(Diseño, response = Tiempo) )
+```
+
+
+```{r }
+lm(Tiempo ~ (a + c + f)^3, data = DiseñoR)
+```
+
+**a** y la interacción **a:c** aumentan el Tiempo,
+mientras que **c:f** lo reduce significativamente.
+
+
+```{r }
+
+
+DanielPlot(DiseñoR, autolab = F)
+```
+
+En el DanielPlot, los efectos **a**, **a:c** y **c:f** se destacan como significativos;
+**a** y **a:c** incrementan el Tiempo, mientras que **c:f** lo disminuye. **a:c:f** tambien destaca, pero no tanto.
+
+
+```{r }
+MEPlot(DiseñoR, cex.title = 0.9)
+```
+El gráfico muestra el efecto de cada factor sobre la media. **a** tiene mayor pendiente y es el más significativo, seguido de **f**; **c** apenas influye, y su pequeña variación probablemente se deba al azar.
+
+```{r }
+IAPlot(DiseñoR, cex.title = 0.95)
+```
+
+Representa gráficamente la interacción entre los factores. Las líneas más perpendiculares, y por tanto la interacción más fuerte, se observan en **c:f**. También se aprecia una leve interacción en **a:c**, mientras que **a:f** apenas muestra efecto. En este gráfico no se representan las interacciones triples.
+
+```{r }
+cubePlot(obj = lm(Tiempo ~ (a + c + f)^3, data = DiseñoR), 
+         eff1 = "a",eff2 = "c",eff3 = "f",main = "Interacción acf",
+         round = 2,cex.clab= 0.8,size=.3,y.margin.add=.2)
+
+```
+El gráfico muestra que al aumentar los factores **a**, **c** y **f** simultáneamente, el Tiempo también aumenta, evidenciando una interacción positiva entre ellos. Los valores más altos se presentan cuando todos los factores están en su nivel alto.
+
+@apuntes 
+
+## P.II y P.IV (pseudoreplicas)
+
+@2022Pseudoreplicacion 
+
+Ahora, los datos serán analizados nuevamente incorporando los resultados obtenidos por el grupo P.II como réplicas experimentales. 
+
+```{r eval=TRUE}
+
+Diseño <- fac.design(2, 3, replications =  2, randomize = F, 
+                     factor.names = list(a = c(-1, 1), c = c(-1, 1), f = c(-1, 1)))
+TiempoP2 <- c(5.25,4.93,4.58,4.79,4.71,5.85,5.24,5.49) 
+Tiempo<-c(TiempoP4, TiempoP2)
+( DiseñoR <- add.response(Diseño, response = Tiempo) )
+lm(Tiempo ~ (a + c + f)^3, data = DiseñoR)
+
+```
+El efecto más fuerte y positivo proviene de **a**, seguido por **f** y **a:c**, que tienen impactos menores. Las interacciones **c:f** y **a:c:f** generan los efectos negativos más notables, aunque siguen siendo mucho menos influyentes que **a**.
+
+
+
+
+```{r}
+
+DanielPlot(DiseñoR, autolab = F)
+
+
+```
+Los factores **c:f**, **a:c:f**, **a** y **a:c** se desvían notablemente del comportamiento lineal, lo que confirma que son los más influyentes en el modelo, tal como se observó previamente.
+
+
+
+
+```{r eval=TRUE}
+
+MEPlot(DiseñoR, cex.title = 0.9)
+
+```
+
+**a** tiene mayor pendiente y es el más significativo, seguido de **f** que sigue teniendo una pendiente muy grande; **c** apenas influye, y su pequeña variación probablemente se deba al azar.
+
+```{r eval=TRUE}
+
+IAPlot(DiseñoR, cex.title = 0.95)
+
+```
+
+La interacción más fuerte, se observan en **c:f**. También se aprecia una leve interacción en **a:c**, mientras que **a:f** apenas muestra efecto. En este gráfico no se representan las interacciones triples.
+
+
+
+```{r eval=TRUE}
+
+summary(aov(lm(Tiempo ~ (a + c + f)^3, data = Diseño)))
+
+```
+
+Ningún factor ni interacción resulta estadísticamente significativo (todos los p-valores > 0.05).
+Sin embargo, el factor **a** muestra el mayor efecto relativo, seguido de la interacción **c:f**, lo cual coincide con lo observado en los gráficos de efectos e interacciones.
+
+
+
+
+## Considerando el factor Grupo como Bloque
+
+Con esta consideración se establece que no interesan las interacciones entre el Grupo (bloque) y el resto de factores.
+
+```{r eval=TRUE}
+
+Diseño <- fac.design(2, 3, replications =  2, block.name = "Grupo", randomize = F, 
+                     factor.names = list(a = c(-1, 1), c = c(-1, 1), f = c(-1, 1)))
+( DiseñoR <- add.response(Diseño, response = Tiempo) )
+
+```
+
+
+
+```{r eval=TRUE}
+
+lm(Tiempo ~ (a + c + f)^3 + Grupo, data = DiseñoR)
+```
+
+El modelo indica que el factor **a** tiene el efecto positivo más fuerte sobre el tiempo, seguido por **f**, mientras que c apenas influye. El Grupo.2 reduce significativamente el tiempo, mostrando un desempeño más rápido. Las interacciones **a:c** y **a:f** son levemente positivas, mientras que **c:f** y **a:c:f** son negativas, lo que sugiere que la combinación de los tres factores atenúa el incremento del tiempo producido por **a**.
+
+```{r eval=TRUE}
+
+DanielPlot(DiseñoR, autolab = F)
+
+```
+
+
+
+```{r eval=TRUE}
+
+MEPlot(DiseñoR, cex.title = 0.9)
+```
+
+
+
+```{r eval=TRUE}
+
+IAPlot(DiseñoR, cex.title = 0.95)
+
+```
+
+
+
+```{r eval=TRUE}
+
+
+summary(aov(lm(Tiempo ~ (a + c + f)^3 + Grupo, data = Diseño)))
+
+```
+
+El análisis ANOVA muestra que ningún factor es estadísticamente significativo al 5%, aunque a (p = 0.0898) y Grupo (p = 0.0620) se acercan al umbral, indicando que podrían tener cierta influencia sobre el tiempo. El resto de los factores e interacciones presentan valores de p altos, lo que sugiere efectos débiles o poco relevantes. En conjunto, el modelo refleja una tendencia donde a y Grupo son los factores más influyentes, pero sin evidencia fuerte de significancia.
+
+### Conclusión "P" {#FCC1}
+
+En este experimento, el modelo que incluye el factor Grupo como bloque es el más informativo, ya que permite aislar las diferencias entre grupos de trabajo, las cuales son notables pero no forman parte del objetivo principal del análisis. Al considerar Grupo como bloque, se controla su influencia, reduciendo la variabilidad residual y mejorando la interpretación de los efectos de los factores experimentales.
+
+Según los resultados del ANOVA, los factores **a** (Longitud de las Alas) y **Grupo** muestran los efectos más relevantes, aunque solo se aproximan a la significancia estadística. El resto de factores e interacciones no presentan evidencia de influencia importante sobre el tiempo.
+
+El gráfico de Daniel respalda esta conclusión: el factor a se separa claramente del comportamiento lineal, lo que confirma su peso dentro del modelo. El gráfico de efectos principales muestra, además, que el efecto de **a** es positivo, incrementando el tiempo medio al pasar del nivel bajo al nivel alto.
+
+Finalmente, puede observarse que cuando el factor Grupo no se incluye como bloque, el modelo pierde potencia: la variabilidad residual aumenta, el estadístico F disminuye y los efectos aparentan ser menos significativos. Incluir el bloque, por tanto, mejora la precisión del análisis al eliminar parte de la incertidumbre asociada a las diferencias entre grupos.residuos, por lo tanto el denominador del estadístico F aumenta y su valor disminuye.
+
+@garcia2011introduccion
+
+```{r eval=TRUE}
+Diseño <- fac.design(2, 3, replications =  2, randomize = F, 
+                     factor.names = list(a = c(-1, 1), c = c(-1, 1), f = c(-1, 1)))
+Tiempo<-c(TiempoP4, TiempoP2)
+DiseñoR <- add.response(Diseño, response = Tiempo)
+summary(aov(lm(Tiempo ~ (a + c + f)^3, data = DiseñoR)))
+```
+
+
+
+## Considerando el factor Altura como Bloque P.III y P.IV
+
+Con esta consideración se establece que no interesan las interacciones entre el Grupo (bloque) y el resto de los factores experimentales. En este caso, los grupos se diferencian principalmente en la altuta desde el cual se realizaron los lanzamientos: el grupo P.IV efectuó las pruebas desde el edificio Sabatini, mientras que el grupo P.III lo hizo desde el edificio 6. Esta diferencia no solo implica una variación en la altura de lanzamiento, sino también posibles cambios en las condiciones ambientales,como corrientes de aire, temperatura o turbulencias locales. Lo que puede añadir una fuente adicional de variabilidad experimental ajena a los factores controlados en el diseño.
+
+```{r eval=TRUE}
+Diseño <- fac.design(2, 3, replications =  2, block.name = "Altura", randomize = F, 
+                     factor.names = list(a = c(-1, 1), c = c(-1, 1), f = c(-1, 1)))
+TiempoP4 <- c(5.26,5.24,5.29,7.45,6.1,6.76,4.75,6)
+TiempoP3 <- c(3.11, 4.33, 3.86, 3.63, 3.83, 5.27, 3.58, 4.74) 
+Tiempo<-c(TiempoP4, TiempoP3)
+( DiseñoR <- add.response(Diseño, response = Tiempo))
+
+```{r eval=TRUE}
+lm(Tiempo ~ (a + c + f)^3 + Altura, data = DiseñoR)
+```
+
+Lanzar el helicoptero en el edificio 6 tiene un efecto muy negativo, es el mas grande de todos por mucho. Si no se hubiera considerado como bloque este efecto habría contaminado el error residual. 
+
+
+```{r eval=TRUE}
+DanielPlot(DiseñoR, autolab = F)
+```
+
+
+
+```{r eval=TRUE}
+DanielPlot(DiseñoR, autolab = T)
+```
+
+
+
+```{r eval=TRUE}
+MEPlot(DiseñoR, cex.title = 0.9)
+```
+
+
+
+```{r eval=TRUE}
+IAPlot(DiseñoR, cex.title = 0.95)
+```
+
+
+
+```{r eval=TRUE}
+summary(aov(lm(Tiempo ~ (a + c + f)^3 + Altura, data = DiseñoR)))
+
+
+```
+
+
+
+### Conclusión "G" {#FCC7}
+
+En este diseño, el factor **Altura** se incorpora como bloque para aislar la variabilidad asociada a las diferentes condiciones de lanzamiento entre el edificio Sabatini (P.IV) y el edificio 6 (P.III). Esta variabilidad, atribuible a diferencias en corrientes de aire, temperatura y turbulencias locales,pero sobretodo, a la altura, no constituye el foco de interés del estudio. Al tratarse de una fuente de heterogeneidad conocida pero ajena a los factores experimentales, se excluyen deliberadamente las interacciones entre **Altura** y los factores **a**, **c** y **f** del modelo, tal como prescribe la teoría de diseños en bloques.
+@de2018probabilidad 
+
+El modelo ajustado sigue la estructura:
+$$
+Y_{ijk} = \mu + \underbrace{\beta_i}_{\text{Altura}} + \underbrace{\tau_j}_{a} + \underbrace{\gamma_k}_{c} + \underbrace{\delta_l}_{f} + (\tau\gamma)_{jk} + (\tau\delta)_{jl} + (\gamma\delta)_{kl} + (\tau\gamma\delta)_{jkl} + \epsilon_{ijk}
+$$
+
+El análisis estadístico revela resultados concluyentes. El gráfico de Daniel identifica claramente el efecto principal del factor **a** (longitud de alas) como significativo, junto con el bloque **Altura**. La interacción **c:f** emerge como marginalmente notable, mientras que los demás efectos e interacciones son claramente despreciables.
+
+
+El gráfico de efectos principales confirma que el factor **a** posee un efecto positivo y robusto de aproximadamente 0.48 segundos al pasar de su nivel bajo a alto. En contraste, el factor **c** (ancho) muestra un efecto prácticamente nulo (-0.04 s), y el factor **f** registra un efecto moderado pero no significativo (0.18 s). El bloque **Altura** exhibe el efecto más pronunciado, con una diferencia de -1.81 segundos entre edificios, validando su inclusión como fuente controlada de variabilidad.
+
+El ANOVA confirma estas observaciones: el factor **a** es significativo (p = 0.023), la **Altura** es altamente significativa (p < 0.001), y la interacción **c:f** es marginalmente significativa (p = 0.091). La inclusión del bloque **Altura** reduce sustancialmente la variabilidad residual (MS_resid = 0.438), incrementando la precisión del experimento y permitiendo detectar efectos genuinos que de otro modo permanecerían ocultos.
+
+
+Es crucial destacar que el diseño en bloques fue imprescindible. Si se omite el factor **Altura** del modelo, el incremento en la suma de cuadrados del error residual diluiría la significancia de los factores experimentales, comprometiendo la capacidad para identificar diferencias reales. Esta estrategia metodológica demuestra que controlar las fuentes conocidas de variabilidad ambiental no solo es estadísticamente correcto, sino que fortalece la conclusión de que la longitud de alas es el único factor con efecto sistemático y reproducible sobre el tiempo de vuelo, mientras que la interacción entre ancho y el factor F (c:f) merece investigación adicional con réplicas aumentadas. @de2018probabilidad 
+
+```{r eval=TRUE}
+Diseño <- fac.design(2, 3, replications =  2, randomize = F, 
+                     factor.names = list(a = c(-1, 1), c = c(-1, 1), f = c(-1, 1)))
+Tiempo<-c(TiempoP4, TiempoP3)
+DiseñoR <- add.response(Diseño, response = Tiempo)
+summary(aov(lm(Tiempo ~ (a + c + f)^3, data = Diseño)))
+```
+
+Al omitir el factor Altura como bloque, el error residual se infla 4.6 veces, al absorber la variabilidad entre edificios. Esta contaminación del error reduce drásticamente la potencia estadística, haciendo que el factor A deje de ser significativo (p=0.216 vs p=0.023) y ocultando efectos genuinos. Sin bloqueo, el riesgo de concluir erróneamente que ningún factor afecta el tiempo de vuelo es elevado, demostrando que el diseño en bloques fue metodológicamente imprescindible para aislar la variabilidad y obtener estimaciones precisas.
+
+------------------------------------------------------------------------
+
+# Analisis fraccionado {#Doskf}
+
+## Introducción
+
+![](/imagenes/descargar)
+
+El estudio integral de los factores que afectan el tiempo de vuelo de un helicóptero de papel requiere evaluar simultáneamente múltiples variables de diseño. Con ocho factores de interés:
+
+
+* A: Largo de Alas
+
+* B: Alto Rotor
+
+* C: Ancho Rotor
+
+* D: Alto Cuerpo
+
+* E: Ancho Cuerpo
+
+* F: Clip
+
+* G: Gramaje Papel
+
+* H: Celo Cuerpo
+
+El diseño factorial completo requeriría $2^8=256$ combinaciones experimentales, lo que supera las restricciones de tiempo y recursos disponibles. Para superar esta limitación, se implementa un diseño factorial fraccionado de resolución IV con 16 experimentos, correspondiente a una fracción 1/16 del diseño completo.
+
+
+El experimento contempla dos configuraciones físicas distintas: helicópteros Pequeños (P) con dimensiones reducidas y Grandes (G) con dimensiones ampliadas, manteniendo el mismo rango relativo de variación para cada factor. Este diseño $2^{8−4}$ permite estimar los efectos principales libres de confusión entre sí, aunque algunos de ellos permanecen confundidos con interacciones de orden tres, mientras que las interacciones de segundo orden están confundidas entre sí, lo que resulta aceptable bajo el supuesto de efectos de interacción despreciables (efectos sparsity).
+
+
+Las diferencias entre grupos pueden considerarse bloques, para aisalr la variabilidad asociada.
+
+@apuntes
+
+### Helicóptero P.IV: Sin réplicas {#FO}
+
+```{r}
+Diseño <- FrF2(16, randomize = F, replications = 1,
+               factor.names = list(A="", B="", C="", D="", E="", F="", G="", H=""))
+Tiempo <- c(5.45, 4.19, 4.18, 3.93, 3.84, 4.8, 4.44, 5.4, 3.15, 4.57, 3.96, 5.39, 4.75, 4.91, 4.72, 4.48) 
+DiseñoR <- add.response(Diseño, Tiempo)
+DanielPlot(DiseñoR, autolab = F)
+DanielPlot(DiseñoR, autolab = T)
+MEPlot(DiseñoR, cex.title = 0.9)
+summary(lm(Tiempo ~ A + B + C + D + E + F + G + H, data = DiseñoR))
+summary(aov(lm(Tiempo ~ A + B + C + D + E + F + G + H, data = DiseñoR)))
+```
+
+El diseño factorial fraccionado $2^{8−4}$ de 16 experimentos identifica claramente tres factores dominantes sobre el tiempo de vuelo del helicóptero. El modelo explica el 89.1% de la variabilidad total con un error residual de 0.304 segundos, y la estadística global es altamente significativa ($F=7.18, p=0.009$), confirmando que los efectos principales capturan adecuadamente los cambios experimentales.
+
+El gramaje del papel (G) emerge como el factor más preponderante, reduciendo el tiempo de vuelo en 0.8 segundos al incrementarse de 80 a 100 g/m². Le sigue el uso de celo (H) con efecto negativo de 0.6 segundos, y el largo de alas (A) como único efecto positivo significativo, incrementando el vuelo en 0.4 segundos.
+
+El ancho del rotor (C) es marginalmente significativo (p=0.077), mientras que B, D, E y F resultan claramente no influyentes.
+
+Como diseño de resolución IV, los efectos principales están libres de confusión entre sí pero confundidos con interacciones de tercer orden. 
+
+Los resultados marginales de A y C requieren validación mediante réplicas adicionales o un diseño de resolución V que distinga las interacciones de segundo orden si resultan teóricamente relevantes.
+
+### Helicóptero P.IV: 2 réplicas {#F1}
+
+```{r}
+Diseño <- FrF2(16, randomize = F, replications = 2,
+               factor.names = list(A="", B="", C="", D="", E="", F="", G="", H=""))
+Diseño$Grupo <- as.factor(c(rep(1, 16), rep(-1, 16)))
+Tiempo1 <- c(5.45, 4.19, 4.18, 3.93, 3.84, 4.8, 4.44, 5.4, 3.15, 4.57, 3.96, 5.39, 4.75, 4.91, 4.72, 4.48) 
+Tiempo2 <- c(5.47, 4.32, 4.34, 4.08, 3.89, 5.35, 3.84, 5.12, 3.6, 4.93, 3.28, 4.64, 4.21, 4.21, 4.01, 4.04) 
+Tiempo <- c(Tiempo1,Tiempo2)
+DiseñoR <- add.response(Diseño, Tiempo)
+DanielPlot(DiseñoR, autolab = F)
+DanielPlot(DiseñoR, autolab = T)
+MEPlot(DiseñoR, cex.title = 0.9)
+summary(lm(Tiempo ~ A + B + C + D + E + F + G + H , data = DiseñoR))
+summary(aov(lm(Tiempo ~ A + B + C + D + E + F + G + H , data = DiseñoR)))
+```
+
+
+El diseño factorial fraccionado $2^{8−4}$ con pseudoréplicas (32 experimentos) muestra un modelo robusto que explica el 76.3% de la variabilidad total, con un error residual de 0.351 segundos. La estadística global es altamente significativa ($F=9.25, p<0.001$), confirmando que los efectos principales capturan adecuadamente los cambios experimentales. Esta mejora respecto al diseño sin réplicas refleja el incremento en grados de libertad (23 vs 7) y la mayor precisión al promediar lanzamientos repetidos.
+ 
+El factor G (gramaje del papel) domina claramente el comportamiento del sistema con un efecto negativo de −0.412 segundos (F=43.9, p<0.001), reduciendo el tiempo de vuelo en aproximadamente 0.8 segundos al incrementarse de 80 a 100 g/m². Le sigue A (largo de alas) con efecto positivo de 0.226 segundos (F=13.2, p=0.001), prolongando el vuelo en 0.45 segundos al aumentar la superficie de sustentación. H (uso de celo) resulta significativo con efecto negativo de −0.177 segundos (F=8.14, p=0.009), disminuyendo el tiempo en 0.35 segundos. D (alto cuerpo) es marginalmente significativo (p=0.069), mientras que B, C, E y F son claramente no influyentes.
+
+
+Como diseño de resolución IV, los efectos principales permanecen confundidos con interacciones de tercer orden. La alta significancia y gran magnitud de G, A y H sugieren efectos genuinos, no resultado de la confusion. Sin embargo, sería prudente validar estos resultados mediante un diseño de resolución V o aumentando réplicas adicionales para separarlas de interacciones si resultan teóricamente relevantes para la optimización.
+
+### Helicóptero P.IV y P.II: bloque grupo
+
+La principal diferencia entre los grupos [P.IV](https://docs.google.com/spreadsheets/d/1SjgBZUapjLQPmZ8jTGGGw26hlpsfCv4fMGDDYE59fMs/edit?gid=0#gid=0) y [P.II](https://docs.google.com/spreadsheets/d/1M7xURbc1djPGC-XK8gDvMk3hH5TJrqjHrQ5iHJ-jXE8/edit?gid=0#gid=0) radica en el tipo de cinta empleada: el primero utiliza cinta adhesiva, mientras que el segundo emplea cinta de doble cara.
+
+```{r}
+Diseño <- FrF2(16, randomize = F, replications = 4,
+               factor.names = list(A="", B="", C="", D="", E="", F="", G="", H=""))
+Diseño$Grupo <- as.factor(c(rep(1, 32), rep(-1, 32)))
+Diseño
+
+Tiempo1.1 <- c(5.45, 4.19, 4.18, 3.93, 3.84, 4.8, 4.44, 5.4, 3.15, 4.57, 3.96, 5.39, 4.75, 4.91, 4.72, 4.48) 
+Tiempo2.1 <- c(5.47, 4.32, 4.34, 4.08, 3.89, 5.35, 3.84, 5.12, 3.6, 4.93, 3.28, 4.64, 4.21, 4.21, 4.01, 4.04) 
+
+Tiempo1.2 <- c(3.72, 4.64, 4.37, 3.81, 3.68, 5.29, 3.69, 6.38, 4.2, 4.28, 4.15, 5.23, 4.52, 4.05, 4.3, 4.59) 
+Tiempo2.2 <- c(4.27, 3.96, 3.6, 4.01, 3.87, 5.26, 3.05, 4.3, 4.3, 5.51, 4.42, 5.25, 4.12, 4.48, 4.78, 4.33) 
+
+
+Tiempo <- c(Tiempo1.1,Tiempo1.2,Tiempo2.1,Tiempo2.2)
+DiseñoR <- add.response(Diseño, Tiempo)
+DanielPlot(DiseñoR, autolab = F)
+DanielPlot(DiseñoR, autolab = T)
+MEPlot(DiseñoR, cex.title = 0.9)
+summary(lm(Tiempo ~ A + B + C + D + E + F + G + H , data = DiseñoR))
+summary(aov(lm(Tiempo ~ A + B + C + D + E + F + G + H , data = DiseñoR)))
+
+```
+
+
+El diseño factorial fraccionado $2^{8−4}$ con pseudoréplicas (64 experimentos) y bloqueo por grupo muestra un modelo estadísticamente significativo que explica el 54.6% de la variabilidad total en el tiempo de vuelo, con un error residual de 0.46 segundos. La estadística global es robusta (F=8.28, p<0.001), confirmando que el conjunto de factores estudiados produce cambios sistemáticos en el tiempo de vuelo.
+ 
+Los factores G (gramaje del papel) y A (largo de alas) dominan claramente el comportamiento del sistema. El gramaje es el efecto más preponderante, reduciendo el tiempo de vuelo en aproximadamente 0.7 segundos al incrementarse de 80 a 100 g/m², lo que refleja el impacto directo del peso sobre la dinámica de caída. El largo de alas demuestra el único efecto positivo significativo, prolongando el vuelo en 0.55 segundos al aumentar la superficie de sustentación.
+ 
+ 
+El factor H (uso de celo) pierde significancia respecto a análisis previos (p=0.126), sugiriendo que su efecto era menos robusto o depende de interacciones que el diseño actual no puede estimar. Los factores B, C, D, E y F resultan claramente no significativos (p>0.28), indicando que sus variaciones dentro del rango experimental no producen cambios detectables.
+
+Al usar pseudoréplicas, los grados de libertad aumentan de 7 a 55, lo que mejora mucho la fiabilidad y capacidad del análisis, aunque también añade más variabilidad que reduce un poco la importancia de los efectos pequeños. Agrupar los experimentos por bloques es muy importante para separar las diferencias entre grupos de trabajo, aunque en este caso el efecto del bloque ya está incluido en la forma en que se aleatorizó el experimento. 
+
+Como es un diseño de resolución IV, los efectos principales siguen mezclados con interacciones de tres factores; la gran importancia y tamaño de G y A indican que son efectos reales, no productos de la confusión entre factores.
+
+### Helicóptero P.IV y P.III: bloque altura
+
+Con esta consideración se establece que no interesan las interacciones entre el Grupo (bloque) y el resto de los factores experimentales. En este caso, los grupos se diferencian principalmente en la ubicación desde la cual se realizaron los lanzamientos: el grupo P.IV efectuó las pruebas desde el edificio Sabatini, mientras que el grupo P.III lo hizo desde el edificio 6. 
+
+Esta diferencia implica no solo una variación en la altura de lanzamiento, sino también cambios en las condiciones ambientales locales, como corrientes de aire, temperatura, humedad o turbulencias específicas de cada edificio. Estos factores constituyen una fuente adicional de variabilidad experimental ajena a los factores controlados en el diseño, por lo que su inclusión como bloque resulta imprescindible para aislar su efecto y evitar que confunda las estimaciones de los factores de interés principal.
+
+```{r}
+Diseño <- FrF2(16, randomize = F, replications = 4,
+               factor.names = list(A="", B="", C="", D="", E="", F="", G="", H=""))
+Diseño$Grupo <- as.factor(c(rep(1, 32), rep(-1, 32)))
+Diseño
+
+Tiempo1.1 <- c(5.45, 4.19, 4.18, 3.93, 3.84, 4.8, 4.44, 5.4, 3.15, 4.57, 3.96, 5.39, 4.75, 4.91, 4.72, 4.48) 
+Tiempo2.1 <- c(5.47, 4.32, 4.34, 4.08, 3.89, 5.35, 3.84, 5.12, 3.6, 4.93, 3.28, 4.64, 4.21, 4.21, 4.01, 4.04) 
+ 
+Tiempo2.1 <- c(3.04, 3.35, 3.65, 3.02, 3.03, 3.69, 3.05, 4.43, 3.39, 3.97, 2.88, 3.94, 3.57, 3.32, 3.8, 3.54) 
+Tiempo2.2 <- c(3.71, 4.51, 3.73, 3.11, 3.39, 4.53, 3.23, 4.27, 3.01, 4.56, 2.88, 4.39, 3.54, 3.73, 3.48, 3.67) 
+ 
+Tiempo <- c(Tiempo1.1,Tiempo1.2,Tiempo2.1,Tiempo2.2)
+DiseñoR <- add.response(Diseño, Tiempo)
+DanielPlot(DiseñoR, autolab = F)
+DanielPlot(DiseñoR, autolab = T)
+MEPlot(DiseñoR, cex.title = 0.9)
+summary(lm(Tiempo ~ A + B + C + D + E + F + G + H , data = DiseñoR))
+summary(aov(lm(Tiempo ~ A + B + C + D + E + F + G + H , data = DiseñoR)))
+```
+
+El diseño factorial fraccionado $2^{8−4}$ con pseudoréplicas y bloqueo por altura (64 experimentos total) muestra un modelo estadísticamente significativo (F 8,55=4.45, p<0.001) que explica el 39.3% de la variabilidad total, con un error residual de 0.608 segundos. Aunque la proporción de varianza explicada es menor que en análisis previos, la inclusión de datos de un segundo grupo experimental aumenta la robustez y generalidad de las conclusiones.
+ 
+Los factores G (gramaje del papel) y A (largo de alas) dominan claramente el comportamiento del sistema. El gramaje es el efecto más preponderante, reduciendo el tiempo de vuelo en aproximadamente 0.65 segundos al incrementarse de 80 a 100 g/m², confirmando el impacto directo del peso. El largo de alas muestra el único efecto positivo significativo (, prolongando el vuelo en 0.55 segundos al aumentar la superficie de sustentación. El resto de factores (B, C, D, E, F, H) resultan no significativos (p>0.15), indicando que sus variaciones dentro del rango experimental no producen cambios detectables.
+
+La inclusión de pseudoréplicas aumenta los grados de libertad de 7 a 55, mejorando sustancialmente la fiabilidad y capacidad del análisis, aunque también añade más variabilidad que reduce un poco la importancia de los efectos pequeños. El bloqueo por grupo es muy importante para separar las diferencias entre los dos lugares de lanzamiento, aunque en este caso el efecto del bloque queda incluido en la forma en que se aleatorizó el experimento. Como es un diseño de resolución IV, los efectos principales siguen mezclados con interacciones de tres factores; la gran importancia y tamaño de G y A indican que son efectos reales, no productos de la confusión entre factores.
+
+# Conclusión
+
+El mejor experimento, que podemos hacer con lo estudiado, es aquel que combina diseño fraccionado para ahorrar recursos, réplicas múltiples para ganar precisión, y bloqueo para controlar diferencias entre condiciones de lanzamiento. Esta estrategia permite identificar con confianza que el peso del papel y el tamaño de las alas son los factores dominantes del tiempo de vuelo, mientras evita conclusiones erróneas por no haber controlado las condiciones ambientales.
+
+# Bibliografia
+
+
+
+#
+```{=html}
+<div id="comments">
+  <h2>💬 Comentarios</h2>
+  <script src="https://utteranc.es/client.js"
+          repo="MarcosGarciaGutierrez/Estadistica_entrega_4"
+          issue-term="pathname"
+          label="comentario"
+          theme="github-dark"
+          crossorigin="anonymous"
+          async>
+  </script>
+</div>
+``` 

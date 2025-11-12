@@ -1,0 +1,7 @@
+/* styles.css */
+.q-toc {
+  width: 250px; /* ancho de la TOC */
+  background-color: #f8f8f8;
+  padding: 10px;
+  border-radius: 5px;
+}
