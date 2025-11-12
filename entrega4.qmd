@@ -525,11 +525,12 @@ La inclusión de pseudoréplicas aumenta los grados de libertad de 7 a 55, mejor
 
 El mejor experimento, que podemos hacer con lo estudiado, es aquel que combina diseño fraccionado para ahorrar recursos, réplicas múltiples para ganar precisión, y bloqueo para controlar diferencias entre condiciones de lanzamiento. Esta estrategia permite identificar con confianza que el peso del papel y el tamaño de las alas son los factores dominantes del tiempo de vuelo, mientras evita conclusiones erróneas por no haber controlado las condiciones ambientales.
 
-# Bibliografia
 
 
 
-#
+
+
+
 ```{=html}
 <div id="comments">
   <h2>💬 Comentarios</h2>
@@ -543,3 +544,5 @@ El mejor experimento, que podemos hacer con lo estudiado, es aquel que combina d
   </script>
 </div>
 ``` 
+
+# Bibliografia
