@@ -2533,9 +2533,9 @@ lm.default(formula = Tiempo ~ (a + c + f)^3, data = DiseñoR)
 
 Coefficients:
 (Intercept)           a1           c1           f1        a1:c1        a1:f1  
-    5.48062      0.33313     -0.03187      0.13188      0.15063      0.07938  
+    5.48063      0.33312     -0.03188      0.13187      0.15063      0.07938  
       c1:f1     a1:c1:f1  
-   -0.21063     -0.18813  </code></pre>
+   -0.21062     -0.18813  </code></pre>
 </div>
 </div>
 <p>El efecto más fuerte y positivo proviene de <strong>a</strong>, seguido por <strong>f</strong> y <strong>a:c</strong>, que tienen impactos menores. Las interacciones <strong>c:f</strong> y <strong>a:c:f</strong> generan los efectos negativos más notables, aunque siguen siendo mucho menos influyentes que <strong>a</strong>.</p>
@@ -2627,9 +2627,9 @@ lm.default(formula = Tiempo ~ (a + c + f)^3 + Grupo, data = DiseñoR)
 
 Coefficients:
 (Intercept)           a1           c1           f1      Grupo.2        a1:c1  
-    5.85625      0.33313     -0.03187      0.13188     -0.75125      0.15062  
+    5.85625      0.33312     -0.03188      0.13187     -0.75125      0.15063  
       a1:f1        c1:f1     a1:c1:f1  
-    0.07937     -0.21062     -0.18813  </code></pre>
+    0.07938     -0.21062     -0.18813  </code></pre>
 </div>
 </div>
 <p>El modelo indica que el factor <strong>a</strong> tiene el efecto positivo más fuerte sobre el tiempo, seguido por <strong>f</strong>, mientras que c apenas influye. El Grupo.2 reduce significativamente el tiempo, mostrando un desempeño más rápido. Las interacciones <strong>a:c</strong> y <strong>a:f</strong> son levemente positivas, mientras que <strong>c:f</strong> y <strong>a:c:f</strong> son negativas, lo que sugiere que la combinación de los tres factores atenúa el incremento del tiempo producido por <strong>a</strong>.</p>
@@ -3363,56 +3363,18 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 <h1>Comentarios</h1>
 <div id="comments"></div>
 <script>
-  // Función para obtener el tema actual de Quarto
-  function getQuartoTheme() {
-    const body = document.body;
-    const theme = body.getAttribute('data-quarto-theme') || 
-                  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    return theme === 'dark' ? 'github-dark' : 'github-light';
-  }
-
-  // Función para crear/cargar Utteranc.es con el tema correcto
-  function loadUtterances() {
-    const container = document.getElementById('comments');
-    const existingScript = container.querySelector('script');
-    if (existingScript) {
-      existingScript.remove();
-    }
-
-    const script = document.createElement('script');
+  (function() {
+    var script = document.createElement('script');
     script.src = 'https://utteranc.es/client.js';
     script.setAttribute('repo', 'MarcosGarciaGutierrez/Estadistica_entrega_4');
     script.setAttribute('issue-term', 'pathname');
     script.setAttribute('label', 'comentario');
-    script.setAttribute('theme', getQuartoTheme());
+    script.setAttribute('theme', 'github-dark');
     script.setAttribute('crossorigin', 'anonymous');
     script.async = true;
-
-    container.appendChild(script);
-  }
-
-  // Cargar al inicio
-  document.addEventListener('DOMContentLoaded', loadUtterances);
-
-  // Escuchar cambios de tema
-  const observer = new MutationObserver(loadUtterances);
-  observer.observe(document.body, {
-    attributes: true,
-    attributeFilter: ['data-quarto-theme']
-  });
+    document.getElementById('comments').appendChild(script);
+  })();
 </script>
-
-<style>
-
-.utterances-frame {
-background-color: transparent !important;
-}
-
-#comments {
-border: none !important;
-padding: 0 !important;
-}
-</style>
 </section>
 <section id="bibliografia" class="level1">
 
@@ -3450,7 +3412,6 @@ Varmuza, K., and P. Filzmoser. 2016. <em>Introduction to Multivariate Statistica
 <!-- /main column -->
 <script role="img" src="data:application/javascript; charset=utf-8;base64,KGZ1bmN0aW9uKCl7ZnVuY3Rpb24gaChhKXtyZXR1cm4nW2dpc2N1c10gQW4gZXJyb3Igb2NjdXJyZWQuIEVycm9yIG1lc3NhZ2U6ICInLmNvbmNhdChhLCciLicpfWZ1bmN0aW9uIGwoYSxmKXt2b2lkIDA9PT1mJiYoZj0hMSk7Zj1mPyJtZXRhW3Byb3BlcnR5PSdvZzoiLmNvbmNhdChhLCInXSwiKToiIjtyZXR1cm4oYT1kb2N1bWVudC5xdWVyeVNlbGVjdG9yKGYrIm1ldGFbbmFtZT0nIi5jb25jYXQoYSwiJ10iKSkpP2EuY29udGVudDoiIn1mdW5jdGlvbiBwKCl7ZGVsZXRlIGMuc2Vzc2lvbjt2YXIgYT0iIi5jb25jYXQoaykuY29uY2F0KHEsIi93aWRnZXQ/IikuY29uY2F0KG5ldyBVUkxTZWFyY2hQYXJhbXMoYykpO2Uuc3JjPWF9dmFyIG09ZG9jdW1lbnQuY3VycmVudFNjcmlwdCxrPShuZXcgVVJMKG0uc3JjKSkub3JpZ2luLGI9bmV3IFVSTChsb2NhdGlvbi5ocmVmKSxkPWIuc2VhcmNoUGFyYW1zLmdldCgiZ2lzY3VzIil8fCIiLG49bG9jYWxTdG9yYWdlLmdldEl0ZW0oImdpc2N1cy1zZXNzaW9uIik7CmIuc2VhcmNoUGFyYW1zLmRlbGV0ZSgiZ2lzY3VzIik7Yi5oYXNoPSIiO3ZhciBnPWIudG9TdHJpbmcoKTtpZihkKWxvY2FsU3RvcmFnZS5zZXRJdGVtKCJnaXNjdXMtc2Vzc2lvbiIsSlNPTi5zdHJpbmdpZnkoZCkpLGhpc3RvcnkucmVwbGFjZVN0YXRlKHZvaWQgMCxkb2N1bWVudC50aXRsZSxnKTtlbHNlIGlmKG4pdHJ5e2Q9SlNPTi5wYXJzZShuKX1jYXRjaChhKXtsb2NhbFN0b3JhZ2UucmVtb3ZlSXRlbSgiZ2lzY3VzLXNlc3Npb24iKSxjb25zb2xlLndhcm4oIiIuY29uY2F0KGgobnVsbD09PWF8fHZvaWQgMD09PWE/dm9pZCAwOmEubWVzc2FnZSksIiBTZXNzaW9uIGhhcyBiZWVuIGNsZWFyZWQuIikpfWI9bS5kYXRhc2V0O3ZhciBjPXt9O2Mub3JpZ2luPWc7Yy5zZXNzaW9uPWQ7Yy50aGVtZT1iLnRoZW1lO2MucmVhY3Rpb25zRW5hYmxlZD1iLnJlYWN0aW9uc0VuYWJsZWR8fCIxIjtjLmVtaXRNZXRhZGF0YT1iLmVtaXRNZXRhZGF0YXx8IjAiO2MuaW5wdXRQb3NpdGlvbj1iLmlucHV0UG9zaXRpb258fAoiYm90dG9tIjtjLnJlcG89Yi5yZXBvO2MucmVwb0lkPWIucmVwb0lkO2MuY2F0ZWdvcnk9Yi5jYXRlZ29yeXx8IiI7Yy5jYXRlZ29yeUlkPWIuY2F0ZWdvcnlJZDtjLnN0cmljdD1iLnN0cmljdHx8IjAiO2MuZGVzY3JpcHRpb249bCgiZGVzY3JpcHRpb24iLCEwKTtjLmJhY2tMaW5rPWwoImdpc2N1czpiYWNrbGluayIpfHxnO3N3aXRjaChiLm1hcHBpbmcpe2Nhc2UgInVybCI6Yy50ZXJtPWc7YnJlYWs7Y2FzZSAidGl0bGUiOmMudGVybT1kb2N1bWVudC50aXRsZTticmVhaztjYXNlICJvZzp0aXRsZSI6Yy50ZXJtPWwoInRpdGxlIiwhMCk7YnJlYWs7Y2FzZSAic3BlY2lmaWMiOmMudGVybT1iLnRlcm07YnJlYWs7Y2FzZSAibnVtYmVyIjpjLm51bWJlcj1iLnRlcm07YnJlYWs7ZGVmYXVsdDpjLnRlcm09Mj5sb2NhdGlvbi5wYXRobmFtZS5sZW5ndGg/ImluZGV4Ijpsb2NhdGlvbi5wYXRobmFtZS5zdWJzdHJpbmcoMSkucmVwbGFjZSgvXC5cdyskLywiIil9dmFyIHI9KGQ9ZG9jdW1lbnQucXVlcnlTZWxlY3RvcigiLmdpc2N1cyIpKSYmCmQuaWQ7ciYmKGMub3JpZ2luPSIiLmNvbmNhdChnLCIjIikuY29uY2F0KHIpKTt2YXIgcT1iLmxhbmc/Ii8iLmNvbmNhdChiLmxhbmcpOiIiO2c9IiIuY29uY2F0KGspLmNvbmNhdChxLCIvd2lkZ2V0PyIpLmNvbmNhdChuZXcgVVJMU2VhcmNoUGFyYW1zKGMpKTtiPSJsYXp5Ij09PWIubG9hZGluZz8ibGF6eSI6dm9pZCAwO3ZhciBlPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImlmcmFtZSIpO09iamVjdC5lbnRyaWVzKHtjbGFzczoiZ2lzY3VzLWZyYW1lIGdpc2N1cy1mcmFtZS0tbG9hZGluZyIsdGl0bGU6IkNvbW1lbnRzIixzY3JvbGxpbmc6Im5vIixhbGxvdzoiY2xpcGJvYXJkLXdyaXRlIixzcmM6Zyxsb2FkaW5nOmJ9KS5mb3JFYWNoKGZ1bmN0aW9uKGEpe3ZhciBmPWFbMF07cmV0dXJuKGE9YVsxXSkmJmUuc2V0QXR0cmlidXRlKGYsYSl9KTtlLnN0eWxlLm9wYWNpdHk9IjAiO2UuYWRkRXZlbnRMaXN0ZW5lcigibG9hZCIsZnVuY3Rpb24oKXtlLnN0eWxlLnJlbW92ZVByb3BlcnR5KCJvcGFjaXR5Iik7CmUuY2xhc3NMaXN0LnJlbW92ZSgiZ2lzY3VzLWZyYW1lLS1sb2FkaW5nIil9KTtiPWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJnaXNjdXMtY3NzIil8fGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImxpbmsiKTtiLmlkPSJnaXNjdXMtY3NzIjtiLnJlbD0ic3R5bGVzaGVldCI7Yi5ocmVmPSIiLmNvbmNhdChrLCIvZGVmYXVsdC5jc3MiKTtkb2N1bWVudC5oZWFkLnByZXBlbmQoYik7aWYoZCl7Zm9yKDtkLmZpcnN0Q2hpbGQ7KWQuZmlyc3RDaGlsZC5yZW1vdmUoKTtkLmFwcGVuZENoaWxkKGUpfWVsc2UgZD1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCJkaXYiKSxkLnNldEF0dHJpYnV0ZSgiY2xhc3MiLCJnaXNjdXMiKSxkLmFwcGVuZENoaWxkKGUpLG0uaW5zZXJ0QWRqYWNlbnRFbGVtZW50KCJhZnRlcmVuZCIsZCk7d2luZG93LmFkZEV2ZW50TGlzdGVuZXIoIm1lc3NhZ2UiLGZ1bmN0aW9uKGEpe2Eub3JpZ2luPT09ayYmKGE9YS5kYXRhLCJvYmplY3QiPT09dHlwZW9mIGEmJmEuZ2lzY3VzJiYKKGEuZ2lzY3VzLnJlc2l6ZUhlaWdodCYmKGUuc3R5bGUuaGVpZ2h0PSIiLmNvbmNhdChhLmdpc2N1cy5yZXNpemVIZWlnaHQsInB4IikpLGEuZ2lzY3VzLnNpZ25PdXQ/KGxvY2FsU3RvcmFnZS5yZW1vdmVJdGVtKCJnaXNjdXMtc2Vzc2lvbiIpLGNvbnNvbGUubG9nKCJbZ2lzY3VzXSBVc2VyIGhhcyBsb2dnZWQgb3V0LiBTZXNzaW9uIGhhcyBiZWVuIGNsZWFyZWQuIikscCgpKTphLmdpc2N1cy5lcnJvciYmKGE9YS5naXNjdXMuZXJyb3IsYS5pbmNsdWRlcygiQmFkIGNyZWRlbnRpYWxzIil8fGEuaW5jbHVkZXMoIkludmFsaWQgc3RhdGUgdmFsdWUiKXx8YS5pbmNsdWRlcygiU3RhdGUgaGFzIGV4cGlyZWQiKT9udWxsIT09bG9jYWxTdG9yYWdlLmdldEl0ZW0oImdpc2N1cy1zZXNzaW9uIik/KGxvY2FsU3RvcmFnZS5yZW1vdmVJdGVtKCJnaXNjdXMtc2Vzc2lvbiIpLGNvbnNvbGUud2FybigiIi5jb25jYXQoaChhKSwiIFNlc3Npb24gaGFzIGJlZW4gY2xlYXJlZC4iKSkscCgpKTpufHwKY29uc29sZS5lcnJvcigiIi5jb25jYXQoaChhKSwiIE5vIHNlc3Npb24gaXMgc3RvcmVkIGluaXRpYWxseS4gIikuY29uY2F0KCJQbGVhc2UgY29uc2lkZXIgcmVwb3J0aW5nIHRoaXMgZXJyb3IgYXQgaHR0cHM6Ly9naXRodWIuY29tL2dpc2N1cy9naXNjdXMvaXNzdWVzL25ldy4iKSk6YS5pbmNsdWRlcygiRGlzY3Vzc2lvbiBub3QgZm91bmQiKT9jb25zb2xlLndhcm4oIltnaXNjdXNdICIuY29uY2F0KGEsIi4gQSBuZXcgZGlzY3Vzc2lvbiB3aWxsIGJlIGNyZWF0ZWQgaWYgYSBjb21tZW50L3JlYWN0aW9uIGlzIHN1Ym1pdHRlZC4iKSk6YS5pbmNsdWRlcygiQVBJIHJhdGUgbGltaXQgZXhjZWVkZWQiKT9jb25zb2xlLndhcm4oaChhKSk6Y29uc29sZS5lcnJvcigiIi5jb25jYXQoaChhKSwiICIpLmNvbmNhdCgiUGxlYXNlIGNvbnNpZGVyIHJlcG9ydGluZyB0aGlzIGVycm9yIGF0IGh0dHBzOi8vZ2l0aHViLmNvbS9naXNjdXMvZ2lzY3VzL2lzc3Vlcy9uZXcuIikpKSkpfSl9KSgpOwo=" data-repo="MarcosGarciaGutierrez/Estadistica_entrega_4" data-repo-id="R_kgDOQUUFpA" data-category="Announcements" data-category-id="DIC_kwDOQUUFpM4CxuDW" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="es" crossorigin="anonymous" async>
 </script>
-
 <!-- PANEL DE BÚSQUEDA -->
 <div id="search-panel" class="sidebar-search">
   <div class="search-logo">
@@ -3481,6 +3442,16 @@ Varmuza, K., and P. Filzmoser. 2016. <em>Introduction to Multivariate Statistica
 <!-- BOTÓN ÚNICO PARA COLAPSAR/EXPANDIR CÓDIGO -->
 <div id="code-collapse-controls" class="code-collapse-controls">
   <button id="toggleCodeBtn" class="code-control-button" title="Mostrar/Ocultar código">Ocultar código</button>
+</div>
+
+<!-- BOTÓN EXPORTAR PDF -->
+<div id="pdf-export-controls" class="code-collapse-controls">
+  <button id="exportPdfBtn" class="code-control-button" title="Exportar a PDF" disabled>⚠️ Cargando librería...</button>
+</div>
+
+<!-- BOTÓN GENERAR CITA BIBTEX (NUEVO) -->
+<div id="bibtex-export-controls" class="code-collapse-controls">
+  <button id="exportBibtexBtn" class="code-control-button" title="Generar archivo .bib para citar este trabajo">📑 Generar Cita BibTeX</button>
 </div>
 
 <style>
@@ -3641,7 +3612,6 @@ box-shadow: 0 2px 8px rgba(255,255,255,0.15);
 background: #000;
 box-shadow: 0 4px 12px rgba(255,255,255,0.2);
 }
-
 .code-collapse-controls {
 position: fixed;
 top: 415px;
@@ -3653,8 +3623,8 @@ grid-template-columns: 1fr;
 gap: 6px;
 }
 .code-control-button {
-padding: 12px 8px; 
-font-size: 11px; 
+padding: 12px 8px;
+font-size: 11px;
 font-weight: 600;
 border: none;
 border-radius: 10px;
@@ -3666,8 +3636,8 @@ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 backdrop-filter: blur(4px);
 font-family: 'Segoe UI', system-ui, sans-serif;
-min-height: 40px; 
-line-height: 1.2; 
+min-height: 40px;
+line-height: 1.2;
 }
 .code-control-button:hover {
 transform: translateY(-2px);
@@ -3689,7 +3659,6 @@ display: none !important;
 .code-collapsed + .code-copy-button {
 display: none !important;
 }
-
 .dark-mode #references,
 .dark-mode .references,
 .dark-mode .quarto-appendix-bibliography {
@@ -3698,37 +3667,55 @@ color: #fff !important;
 border: none !important;
 box-shadow: none !important;
 }
-
 .dark-mode #references a,
 .dark-mode .references a,
 .dark-mode .quarto-appendix-bibliography a {
 color: #66b2ff !important;
 text-decoration: underline;
 }
-
 .dark-mode #references li,
 .dark-mode .references li {
 background: transparent !important;
 color: #fff !important;
 }
-
 .dark-mode #references h2,
 .dark-mode .references h2,
 .dark-mode .quarto-appendix-bibliography h2 {
 color: #fff !important;
 }
-
 #references, .references, .quarto-appendix-bibliography {
 transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 .dark-mode .r-output pre code::first-line {
 background-color: transparent !important;
 color: #fff !important;
 }
+#pdf-export-controls {
+position: fixed;
+top: 475px;
+left: 20px;
+width: 200px;
+z-index: 2000;
+display: grid;
+grid-template-columns: 1fr;
+gap: 6px;
+}
+
+#bibtex-export-controls {
+position: fixed;
+top: 535px; 
+left: 20px;
+width: 200px;
+z-index: 2000;
+display: grid;
+grid-template-columns: 1fr;
+gap: 6px;
+}
 </style>
 
+<!-- === BLOQUE 2: SCRIPT PRINCIPAL (TU CÓDIGO ORIGINAL) === -->
 <script>
+// SCRIPT PRINCIPAL - TU CÓDIGO ORIGINAL SIN MODIFICAR
 window.addEventListener('DOMContentLoaded', function() {
   const searchPanel = document.getElementById('search-panel');
   const searchBox = document.getElementById('searchBox');
@@ -3802,23 +3789,19 @@ window.addEventListener('DOMContentLoaded', function() {
     if (matches.length > 0) { currentIndex = (currentIndex - 1 + matches.length) % matches.length; scrollToCurrent(); }
   });
 
-  // --- Función auxiliar: detecta si el rectángulo 'panel' tapa contenido importante ---
   function panelOverlapsContent(panelEl, contentSelector = '.content, .quarto-content, main') {
     if (!panelEl) return false;
     const contentEl = document.querySelector(contentSelector);
     if (!contentEl) return false;
 
     const rect = panelEl.getBoundingClientRect();
-    // si el panel está fuera de la vista, no hay solapamiento
     if (rect.bottom < 0 || rect.top > window.innerHeight || rect.right < 0 || rect.left > window.innerWidth) return false;
 
-    // sample points (3x3 grid) inside panel
     const cols = 3, rows = 3;
     const xs = [], ys = [];
     for (let i = 0; i < cols; i++) xs.push(rect.left + (i + 0.5) * rect.width / cols);
     for (let j = 0; j < rows; j++) ys.push(rect.top + (j + 0.5) * rect.height / rows);
 
-    // Temporarily allow pointer-events through the panel so elementFromPoint returns underlying element
     const prevPointer = panelEl.style.pointerEvents;
     panelEl.style.pointerEvents = 'none';
 
@@ -3826,14 +3809,11 @@ window.addEventListener('DOMContentLoaded', function() {
     try {
       for (let x of xs) {
         for (let y of ys) {
-          // clamp to viewport (elementFromPoint ignores coords outside)
           const cx = Math.min(Math.max(x, 1), window.innerWidth - 1);
           const cy = Math.min(Math.max(y, 1), window.innerHeight - 1);
           const under = document.elementFromPoint(cx, cy);
           if (!under) continue;
-          // si el elemento bajo el panel está dentro del contentEl (o es hijo), consideramos solapamiento
           if (contentEl.contains(under) && !panelEl.contains(under)) {
-            // además filtramos nodos poco relevantes (por ejemplo, si es parte del sidebar u otro panel)
             const tag = under.tagName ? under.tagName.toLowerCase() : '';
             const relevant = ['p','span','a','li','h1','h2','h3','h4','h5','h6','figure','blockquote','article','section','img','code'];
             if (relevant.includes(tag) || under.closest('p,li,h1,h2,h3,h4,h5,h6,article,section,figure,blockquote')) {
@@ -3850,33 +3830,37 @@ window.addEventListener('DOMContentLoaded', function() {
     return overlaps;
   }
 
-  // --- Reemplaza tu updateVisibility() por esta versión ---
   function updateVisibility() {
     if (!contentArea) return;
     const viewportWidth = window.innerWidth;
     const contentRect = contentArea.getBoundingClientRect();
     const contentWidth = contentRect.width;
     const freeSpace = (viewportWidth - contentWidth) / 2 - 20;
-    const isMobile = viewportWidth < 768; // umbral para dispositivos móviles (ajustable)
+    const isMobile = viewportWidth < 768;
 
-    // Comprueba solapamiento de cualquiera de los paneles de control con el contenido
-    const panels = [searchPanel, toggleThemeBtn, fontSizeControls, codeCollapseControls].filter(Boolean);
+    const panels = [
+      searchPanel, 
+      toggleThemeBtn, 
+      fontSizeControls, 
+      codeCollapseControls, 
+      pdfExportControls, 
+      bibtexExportControls
+    ].filter(Boolean);
+    
     let anyOverlaps = false;
     for (const p of panels) {
       if (panelOverlapsContent(p)) { anyOverlaps = true; break; }
     }
 
-    // Mantén también la comprobación original de espacio lateral
     const enoughSideSpace = (freeSpace / viewportWidth >= threshold);
-
-    // Mostrar solo si no es móvil, hay suficiente espacio lateral y NO hay solapamiento
     const shouldShow = !isMobile && enoughSideSpace && !anyOverlaps;
 
-    // Aplicar visibilidad (respeta el display original: block / grid según elemento)
     searchPanel.style.display = shouldShow ? 'block' : 'none';
     toggleThemeBtn.style.display = shouldShow ? 'block' : 'none';
     fontSizeControls.style.display = shouldShow ? 'grid' : 'none';
     codeCollapseControls.style.display = shouldShow ? 'grid' : 'none';
+    pdfExportControls.style.display = shouldShow ? 'grid' : 'none';
+    bibtexExportControls.style.display = shouldShow ? 'grid' : 'none';
   }
 
   function updateLogoScale() {
@@ -3939,7 +3923,6 @@ window.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // TAMAÑO DE LETRA
   const increaseFontBtn = document.getElementById('increaseFontBtn');
   const decreaseFontBtn = document.getElementById('decreaseFontBtn');
   const resetFontBtn = document.getElementById('resetFontBtn');
@@ -3973,14 +3956,12 @@ window.addEventListener('DOMContentLoaded', function() {
     localStorage.removeItem('fontSize');
   });
 
-  // BOTÓN ÚNICO PARA COLAPSAR/EXPANDIR CÓDIGO
   const toggleCodeBtn = document.getElementById('toggleCodeBtn');
   const codeCollapseControls = document.getElementById('code-collapse-controls');
   let codeIsCollapsed = false;
 
   function getCodeBlocks() {
     const blocks = [];
-    // Busca todos los bloques de código típicos de Quarto
     document.querySelectorAll('pre, div.sourceCode, div.cell').forEach(block => {
       if (block.querySelector('code') || block.classList.contains('sourceCode') || block.classList.contains('cell')) {
         blocks.push(block);
@@ -3990,7 +3971,6 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 
   function updateCodeButtonText() {
-    // CAMBIA EL TEXTO según el estado
     toggleCodeBtn.textContent = codeIsCollapsed ? 'Mostrar código' : 'Ocultar código';
     toggleCodeBtn.title = codeIsCollapsed ? 'Expandir todos los códigos' : 'Colapsar todos los códigos';
   }
@@ -4011,7 +3991,6 @@ window.addEventListener('DOMContentLoaded', function() {
     updateCodeButtonText();
   });
 
-  // Cargar estado guardado
   const codeCollapsedPref = localStorage.getItem('codeCollapsed');
   if (codeCollapsedPref === 'true') {
     codeIsCollapsed = true;
@@ -4019,7 +3998,9 @@ window.addEventListener('DOMContentLoaded', function() {
     updateCodeButtonText();
   }
 
-  // INICIALIZAR VISIBILIDAD
+  const pdfExportControls = document.getElementById('pdf-export-controls');
+  const bibtexExportControls = document.getElementById('bibtex-export-controls');
+
   updateVisibility();
   updateLogoScale();
   window.addEventListener('resize', updateVisibility);
@@ -4027,6 +4008,287 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<!-- === BLOQUE 3: CONTENEDOR DE COMENTARIOS === -->
+<div id="comments"></div>
+
+<script>
+// Carga de Utterances
+function loadUtterances() {
+  const existingIframe = document.querySelector('#comments iframe');
+  if (existingIframe) existingIframe.remove();
+  
+  const existingScript = document.querySelector('#comments script');
+  if (existingScript) existingScript.remove();
+
+  const isDark = document.body.classList.contains('dark-mode');
+  const theme = isDark ? 'github-dark' : 'github-light';
+
+  const script = document.createElement('script');
+  script.src = 'https://utteranc.es/client.js ';
+  script.setAttribute('repo', 'MarcosGarciaGutierrez/Estadistica_entrega_4');
+  script.setAttribute('issue-term', 'pathname');
+  script.setAttribute('label', 'comentario');
+  script.setAttribute('theme', theme);
+  script.setAttribute('crossorigin', 'anonymous');
+  script.async = true;
+  
+  document.getElementById('comments').appendChild(script);
+}
+
+loadUtterances();
+
+const toggleThemeBtn = document.getElementById('toggleThemeBtn');
+if (toggleThemeBtn) {
+  toggleThemeBtn.addEventListener('click', () => {
+    setTimeout(() => {
+      loadUtterances();
+    }, 50);
+  });
+}
+</script>
+
+<!-- === BLOQUE 4: CARGA DE JSPDF === -->
+<script>
+// Carga de jsPDF para el botón PDF
+(function() {
+  let jsPDFReady = false;
+  let retryCount = 0;
+  const maxRetries = 20;
+  
+  const script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+  script.crossOrigin = 'anonymous';
+  script.onload = () => console.log('✅ jsPDF cargado correctamente');
+  script.onerror = () => {
+    console.error('❌ Error CDN principal');
+    const fallback = document.createElement('script');
+    fallback.src = 'https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js';
+    fallback.crossOrigin = 'anonymous';
+    fallback.onload = () => console.log('✅ jsPDF cargado desde fallback');
+    document.head.appendChild(fallback);
+  };
+  document.head.appendChild(script);
+  
+  function checkJsPDF() {
+    const exportBtn = document.getElementById('exportPdfBtn');
+    
+    if (window.jspdf && window.jspdf.jsPDF) {
+      jsPDFReady = true;
+      if (exportBtn) {
+        exportBtn.disabled = false;
+        exportBtn.textContent = '📄 Exportar PDF';
+        exportBtn.title = 'Exportar contenido a PDF (solo texto)';
+      }
+      return true;
+    } else if (retryCount < maxRetries) {
+      retryCount++;
+      console.log(`⏳ Esperando jsPDF... intento ${retryCount}/${maxRetries}`);
+      setTimeout(checkJsPDF, 500);
+    } else {
+      if (exportBtn) {
+        exportBtn.textContent = '❌ Error PDF';
+        exportBtn.title = 'Recarga página (F5)';
+        exportBtn.style.background = 'rgba(255, 0, 0, 0.2)';
+      }
+    }
+    return false;
+  }
+  
+  document.addEventListener('DOMContentLoaded', checkJsPDF);
+})();
+</script>
+
+<!-- === BLOQUE 5: FUNCIÓN EXPORTAR PDF === -->
+<script>
+// Función para exportar PDF - SEPARADA E INDEPENDIENTE
+function exportToPDF() {
+  // Verificación de seguridad
+  if (!window.jspdf || !window.jspdf.jsPDF) {
+    alert('❌ jsPDF no está cargado.\n\n1. Recarga la página (Ctrl+R)\n2. Verifica tu conexión\n3. Desactiva bloqueadores');
+    return;
+  }
+  
+  const button = document.getElementById('exportPdfBtn');
+  const originalText = button.textContent;
+  button.textContent = '⏳ Generando PDF...';
+  button.disabled = true;
+  
+  try {
+    const content = document.querySelector('.content, .quarto-content, main');
+    const title = document.querySelector('h1')?.textContent || document.title || 'Documento sin título';
+    
+    if (!content) {
+      alert('No se encontró contenido para exportar');
+      return;
+    }
+    
+    const text = content.innerText || content.textContent;
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    
+    // CONFIGURACIÓN
+    const marginTop = 20;
+    const marginBottom = 20;
+    const marginLeft = 20;
+    const marginRight = 20;
+    const pageWidth = pdf.internal.pageSize.width;
+    const pageHeight = pdf.internal.pageSize.height;
+    const usableWidth = pageWidth - marginLeft - marginRight;
+    
+    const fontSizeNormal = 11;
+    const fontSizeTitle = 16;
+    const lineHeight = fontSizeNormal * 0.3528 * 1.5;
+    
+    // PORTADA
+    pdf.setFontSize(fontSizeTitle);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text(title, marginLeft, marginTop + 20, { maxWidth: usableWidth });
+    
+    pdf.setFontSize(10);
+    pdf.setFont('helvetica', 'normal');
+    const dateStr = new Date().toLocaleDateString('es-ES', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+    pdf.text(`Exportado: ${dateStr}`, marginLeft, marginTop + 35);
+    
+    pdf.addPage();
+    
+    // CONTENIDO
+    pdf.setFontSize(fontSizeNormal);
+    pdf.setFont('helvetica', 'normal');
+    
+    const lines = pdf.splitTextToSize(text, usableWidth);
+    let yPosition = marginTop;
+    let pageNumber = 2;
+    
+    for (let i = 0; i < lines.length; i++) {
+      if (yPosition + lineHeight > pageHeight - marginBottom) {
+        pdf.setFontSize(9);
+        pdf.text(`${pageNumber}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
+        pdf.addPage();
+        pageNumber++;
+        yPosition = marginTop;
+        pdf.setFontSize(fontSizeNormal);
+      }
+      
+      pdf.text(lines[i], marginLeft, yPosition, { maxWidth: usableWidth });
+      yPosition += lineHeight;
+    }
+    
+    pdf.setFontSize(9);
+    pdf.text(`${pageNumber}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
+    
+    const safeTitle = title.replace(/[^a-zA-Z0-9]/g, '-').substring(0, 50);
+    pdf.save(`${safeTitle || 'documento'}.pdf`);
+    
+  } catch (error) {
+    console.error('Error al generar PDF:', error);
+    alert(`Error: ${error.message}`);
+  } finally {
+    button.textContent = originalText;
+    button.disabled = false;
+  }
+}
+
+// Asignar evento al botón PDF (ASEGURADO)
+document.addEventListener('DOMContentLoaded', function() {
+  const exportButton = document.getElementById('exportPdfBtn');
+  if (exportButton) {
+    exportButton.addEventListener('click', exportToPDF);
+    console.log('✅ Evento PDF configurado');
+  } else {
+    console.error('❌ Botón PDF no encontrado');
+  }
+});
+</script>
+
+<!-- === BLOQUE 6: FUNCIÓN GENERAR BIBTEX (NUEVO E INDEPENDIENTE) === -->
+<script>
+// Función para generar archivo .bib de tu documento - COMPLETAMENTE INDEPENDIENTE
+function generateBibTeX() {
+  const button = document.getElementById('exportBibtexBtn');
+  const originalText = button.textContent;
+  button.textContent = '⏳ Generando .bib...';
+  button.disabled = true;
+
+  try {
+    // === RECOPILAR METADATOS DE TU DOCUMENTO ===
+    
+    // 1. TÍTULO
+    const titleElement = document.querySelector('h1');
+    const title = titleElement ? titleElement.textContent.trim() : 
+                 (document.title && document.title !== '') ? document.title.trim() : 
+                 'Documento sin título';
+    
+    // 2. AUTOR (MODIFICA ESTO CON TU NOMBRE REAL)
+    const authorMeta = document.querySelector('meta[name="author"]');
+    const author = authorMeta ? authorMeta.getAttribute('content').trim() : 
+                   'García Gutiérrez, Marcos';
+    
+    // 3. AÑO
+    const year = new Date().getFullYear().toString();
+    
+    // 4. URL FIJA (LA QUE PEDISTE)
+    const url = 'https://marcosgarciagutierrez.github.io/Estadistica_entrega_4';
+    
+    // 5. FECHA DE ACCESO
+    const today = new Date().toISOString().slice(0, 10);
+    
+    // 6. CLAVE BIBTEX ÚNICA
+    const safeTitle = title.replace(/[^a-zA-Z0-9]/g, ' ').toLowerCase();
+    const firstKeyWord = safeTitle.split(' ').find(word => word.length > 3) || 'documento';
+    const authorNames = author.split(' ').map(name => name.charAt(0).toUpperCase() + name.slice(1));
+    const authorKey = authorNames.join('');
+    const bibKey = `${authorKey}${year}${firstKeyWord.charAt(0).toUpperCase() + firstKeyWord.slice(1)}`;
+    
+    // === ENTRADA BIBTEX COMPLETA ===
+    const bibtexEntry = `@misc{${bibKey},
+  author = {${author}},
+  title = {${title}},
+  year = {${year}},
+  url = {${url}},
+  note = {Accedido: ${today}},
+  howpublished = {Documento web en Quarto},
+  type = {Online}
+}`;
+
+    // === CREAR Y DESCARGAR ARCHIVO .BIB ===
+    const blob = new Blob([bibtexEntry], { type: 'text/plain;charset=utf-8' });
+    const link = document.createElement('a');
+    const urlBlob = URL.createObjectURL(blob);
+    
+    // Nombre del archivo: Apellido-Año-PalabraClave.bib
+    const fileName = `${author.split(' ').pop()}-${year}-${firstKeyWord}.bib`;
+    
+    link.href = urlBlob;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(urlBlob);
+    
+  } catch (error) {
+    console.error('Error al generar BibTeX:', error);
+    alert(`Error: ${error.message}\n\nDetalle: ${error.stack}`);
+  } finally {
+    button.textContent = originalText;
+    button.disabled = false;
+  }
+}
+
+// Asignar evento al botón BibTeX (ASEGURADO)
+document.addEventListener('DOMContentLoaded', function() {
+  const bibButton = document.getElementById('exportBibtexBtn');
+  if (bibButton) {
+    console.log('✅ Botón BibTeX encontrado y configurado');
+    bibButton.addEventListener('click', generateBibTeX);
+  } else {
+    console.error('❌ Botón BibTeX NO encontrado en el DOM');
+  }
+});
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -5011,66 +5273,21 @@ window.addEventListener('DOMContentLoaded', function() {
 <span id="cb74-543"><a href="#cb74-543" aria-hidden="true" tabindex="-1"></a><span class="st">```</span><span class="at">{=html}</span></span>
 <span id="cb74-544"><a href="#cb74-544" aria-hidden="true" tabindex="-1"></a><span class="at">&lt;div id=&quot;comments&quot;&gt;&lt;/div&gt;</span></span>
 <span id="cb74-545"><a href="#cb74-545" aria-hidden="true" tabindex="-1"></a><span class="at">&lt;script&gt;</span></span>
-<span id="cb74-546"><a href="#cb74-546" aria-hidden="true" tabindex="-1"></a><span class="at">  // Función para obtener el tema actual de Quarto</span></span>
-<span id="cb74-547"><a href="#cb74-547" aria-hidden="true" tabindex="-1"></a><span class="at">  function getQuartoTheme() {</span></span>
-<span id="cb74-548"><a href="#cb74-548" aria-hidden="true" tabindex="-1"></a><span class="at">    const body = document.body;</span></span>
-<span id="cb74-549"><a href="#cb74-549" aria-hidden="true" tabindex="-1"></a><span class="at">    const theme = body.getAttribute(&#39;data-quarto-theme&#39;) || </span></span>
-<span id="cb74-550"><a href="#cb74-550" aria-hidden="true" tabindex="-1"></a><span class="at">                  (window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;).matches ? &#39;dark&#39; : &#39;light&#39;);</span></span>
-<span id="cb74-551"><a href="#cb74-551" aria-hidden="true" tabindex="-1"></a><span class="at">    return theme === &#39;dark&#39; ? &#39;github-dark&#39; : &#39;github-light&#39;;</span></span>
-<span id="cb74-552"><a href="#cb74-552" aria-hidden="true" tabindex="-1"></a><span class="at">  }</span></span>
-<span id="cb74-553"><a href="#cb74-553" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-554"><a href="#cb74-554" aria-hidden="true" tabindex="-1"></a><span class="at">  // Función para crear/cargar Utteranc.es con el tema correcto</span></span>
-<span id="cb74-555"><a href="#cb74-555" aria-hidden="true" tabindex="-1"></a><span class="at">  function loadUtterances() {</span></span>
-<span id="cb74-556"><a href="#cb74-556" aria-hidden="true" tabindex="-1"></a><span class="at">    const container = document.getElementById(&#39;comments&#39;);</span></span>
-<span id="cb74-557"><a href="#cb74-557" aria-hidden="true" tabindex="-1"></a><span class="at">    const existingScript = container.querySelector(&#39;script&#39;);</span></span>
-<span id="cb74-558"><a href="#cb74-558" aria-hidden="true" tabindex="-1"></a><span class="at">    if (existingScript) {</span></span>
-<span id="cb74-559"><a href="#cb74-559" aria-hidden="true" tabindex="-1"></a><span class="at">      existingScript.remove();</span></span>
-<span id="cb74-560"><a href="#cb74-560" aria-hidden="true" tabindex="-1"></a><span class="at">    }</span></span>
-<span id="cb74-561"><a href="#cb74-561" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-562"><a href="#cb74-562" aria-hidden="true" tabindex="-1"></a><span class="at">    const script = document.createElement(&#39;script&#39;);</span></span>
-<span id="cb74-563"><a href="#cb74-563" aria-hidden="true" tabindex="-1"></a><span class="at">    script.src = &#39;https://utteranc.es/client.js&#39;;</span></span>
-<span id="cb74-564"><a href="#cb74-564" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;repo&#39;, &#39;MarcosGarciaGutierrez/Estadistica_entrega_4&#39;);</span></span>
-<span id="cb74-565"><a href="#cb74-565" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;issue-term&#39;, &#39;pathname&#39;);</span></span>
-<span id="cb74-566"><a href="#cb74-566" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;label&#39;, &#39;comentario&#39;);</span></span>
-<span id="cb74-567"><a href="#cb74-567" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;theme&#39;, getQuartoTheme());</span></span>
-<span id="cb74-568"><a href="#cb74-568" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;crossorigin&#39;, &#39;anonymous&#39;);</span></span>
-<span id="cb74-569"><a href="#cb74-569" aria-hidden="true" tabindex="-1"></a><span class="at">    script.async = true;</span></span>
-<span id="cb74-570"><a href="#cb74-570" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-571"><a href="#cb74-571" aria-hidden="true" tabindex="-1"></a><span class="at">    container.appendChild(script);</span></span>
-<span id="cb74-572"><a href="#cb74-572" aria-hidden="true" tabindex="-1"></a><span class="at">  }</span></span>
-<span id="cb74-573"><a href="#cb74-573" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-574"><a href="#cb74-574" aria-hidden="true" tabindex="-1"></a><span class="at">  // Cargar al inicio</span></span>
-<span id="cb74-575"><a href="#cb74-575" aria-hidden="true" tabindex="-1"></a><span class="at">  document.addEventListener(&#39;DOMContentLoaded&#39;, loadUtterances);</span></span>
-<span id="cb74-576"><a href="#cb74-576" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-577"><a href="#cb74-577" aria-hidden="true" tabindex="-1"></a><span class="at">  // Escuchar cambios de tema</span></span>
-<span id="cb74-578"><a href="#cb74-578" aria-hidden="true" tabindex="-1"></a><span class="at">  const observer = new MutationObserver(loadUtterances);</span></span>
-<span id="cb74-579"><a href="#cb74-579" aria-hidden="true" tabindex="-1"></a><span class="at">  observer.observe(document.body, {</span></span>
-<span id="cb74-580"><a href="#cb74-580" aria-hidden="true" tabindex="-1"></a><span class="at">    attributes: true,</span></span>
-<span id="cb74-581"><a href="#cb74-581" aria-hidden="true" tabindex="-1"></a><span class="at">    attributeFilter: [&#39;data-quarto-theme&#39;]</span></span>
-<span id="cb74-582"><a href="#cb74-582" aria-hidden="true" tabindex="-1"></a><span class="at">  });</span></span>
-<span id="cb74-583"><a href="#cb74-583" aria-hidden="true" tabindex="-1"></a><span class="at">&lt;/script&gt;</span></span>
-<span id="cb74-584"><a href="#cb74-584" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-585"><a href="#cb74-585" aria-hidden="true" tabindex="-1"></a><span class="at">&lt;style&gt;</span></span>
-<span id="cb74-586"><a href="#cb74-586" aria-hidden="true" tabindex="-1"></a><span class="at">  /* Hacer el contenedor transparente */</span></span>
-<span id="cb74-587"><a href="#cb74-587" aria-hidden="true" tabindex="-1"></a><span class="at">  .utterances-frame {</span></span>
-<span id="cb74-588"><a href="#cb74-588" aria-hidden="true" tabindex="-1"></a><span class="at">    background-color: transparent !important;</span></span>
-<span id="cb74-589"><a href="#cb74-589" aria-hidden="true" tabindex="-1"></a><span class="at">  }</span></span>
-<span id="cb74-590"><a href="#cb74-590" aria-hidden="true" tabindex="-1"></a><span class="at">  </span></span>
-<span id="cb74-591"><a href="#cb74-591" aria-hidden="true" tabindex="-1"></a><span class="at">  /* Quitar borde */</span></span>
-<span id="cb74-592"><a href="#cb74-592" aria-hidden="true" tabindex="-1"></a><span class="at">  #comments {</span></span>
-<span id="cb74-593"><a href="#cb74-593" aria-hidden="true" tabindex="-1"></a><span class="at">    border: none !important;</span></span>
-<span id="cb74-594"><a href="#cb74-594" aria-hidden="true" tabindex="-1"></a><span class="at">    padding: 0 !important;</span></span>
-<span id="cb74-595"><a href="#cb74-595" aria-hidden="true" tabindex="-1"></a><span class="at">  }</span></span>
-<span id="cb74-596"><a href="#cb74-596" aria-hidden="true" tabindex="-1"></a><span class="at">&lt;/style&gt;</span></span>
-<span id="cb74-597"><a href="#cb74-597" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
-<span id="cb74-598"><a href="#cb74-598" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-599"><a href="#cb74-599" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-600"><a href="#cb74-600" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-601"><a href="#cb74-601" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-602"><a href="#cb74-602" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-603"><a href="#cb74-603" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-604"><a href="#cb74-604" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-605"><a href="#cb74-605" aria-hidden="true" tabindex="-1"></a><span class="co"># Bibliografia</span></span>
+<span id="cb74-546"><a href="#cb74-546" aria-hidden="true" tabindex="-1"></a><span class="at">  (function() {</span></span>
+<span id="cb74-547"><a href="#cb74-547" aria-hidden="true" tabindex="-1"></a><span class="at">    var script = document.createElement(&#39;script&#39;);</span></span>
+<span id="cb74-548"><a href="#cb74-548" aria-hidden="true" tabindex="-1"></a><span class="at">    script.src = &#39;https://utteranc.es/client.js&#39;;</span></span>
+<span id="cb74-549"><a href="#cb74-549" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;repo&#39;, &#39;MarcosGarciaGutierrez/Estadistica_entrega_4&#39;);</span></span>
+<span id="cb74-550"><a href="#cb74-550" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;issue-term&#39;, &#39;pathname&#39;);</span></span>
+<span id="cb74-551"><a href="#cb74-551" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;label&#39;, &#39;comentario&#39;);</span></span>
+<span id="cb74-552"><a href="#cb74-552" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;theme&#39;, &#39;github-dark&#39;);</span></span>
+<span id="cb74-553"><a href="#cb74-553" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;crossorigin&#39;, &#39;anonymous&#39;);</span></span>
+<span id="cb74-554"><a href="#cb74-554" aria-hidden="true" tabindex="-1"></a><span class="at">    script.async = true;</span></span>
+<span id="cb74-555"><a href="#cb74-555" aria-hidden="true" tabindex="-1"></a><span class="at">    document.getElementById(&#39;comments&#39;).appendChild(script);</span></span>
+<span id="cb74-556"><a href="#cb74-556" aria-hidden="true" tabindex="-1"></a><span class="at">  })();</span></span>
+<span id="cb74-557"><a href="#cb74-557" aria-hidden="true" tabindex="-1"></a><span class="at">&lt;/script&gt;</span></span>
+<span id="cb74-558"><a href="#cb74-558" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb74-559"><a href="#cb74-559" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-560"><a href="#cb74-560" aria-hidden="true" tabindex="-1"></a><span class="co"># Bibliografia</span></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
