@@ -16,7 +16,7 @@
 </div>
 
 <!-- BOTÓN DE TEMA -->
-<button id="toggleThemeBtn" class="theme-button-standalone" title="Cambiar modo">🌙</button>
+<button id="toggleThemeBtn" class="theme-button-standalone" title="Cambiar modo">☀️</button>
 
 <!-- CONTROLES DE TAMAÑO -->
 <div id="font-size-controls" class="font-size-controls">
@@ -391,9 +391,9 @@ pre, code, .r-output, .r-output pre, .r-output code {
 
 </style>
 
-<!-- === BLOQUE 2: SCRIPT PRINCIPAL (TU CÓDIGO ORIGINAL) === -->
+<!-- === BLOQUE 2: SCRIPT PRINCIPAL (MODIFICADO) === -->
 <script>
-// SCRIPT PRINCIPAL - TU CÓDIGO ORIGINAL SIN MODIFICAR
+// SCRIPT PRINCIPAL - MODIFICADO PARA ICONOS DINÁMICOS
 window.addEventListener('DOMContentLoaded', function() {
   const searchPanel = document.getElementById('search-panel');
   const searchBox = document.getElementById('searchBox');
@@ -571,6 +571,12 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 
   function setTheme(dark){
+    // ACTUALIZAR ICONO DEL BOTÓN SEGÚN MODO
+    if(toggleThemeBtn) {
+      toggleThemeBtn.textContent = dark ? '🌙' : '☀️';
+      toggleThemeBtn.title = dark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
+    }
+    
     if(dark){
       document.body.classList.add('dark-mode');
       document.body.style.background = "#000";

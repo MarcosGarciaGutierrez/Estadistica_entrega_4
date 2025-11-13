@@ -4308,7 +4308,7 @@ Varmuza, K., and P. Filzmoser. 2016. <em>Introduction to Multivariate Statistica
 
 <!-- BOTÓN DE TEMA -->
 
-<button id="toggleThemeBtn" class="theme-button-standalone" title="Cambiar modo">🌙</button>
+<button id="toggleThemeBtn" class="theme-button-standalone" title="Cambiar modo">☀️</button>
 
 
 
@@ -4617,11 +4617,11 @@ gap: 6px;
 
 
 
-<!-- === BLOQUE 2: SCRIPT PRINCIPAL (TU CÓDIGO ORIGINAL) === -->
+<!-- === BLOQUE 2: SCRIPT PRINCIPAL (MODIFICADO) === -->
 
 <script>
 
-// SCRIPT PRINCIPAL - TU CÓDIGO ORIGINAL SIN MODIFICAR
+// SCRIPT PRINCIPAL - MODIFICADO PARA ICONOS DINÁMICOS
 
 window.addEventListener('DOMContentLoaded', function() {
 
@@ -4976,6 +4976,18 @@ window.addEventListener('DOMContentLoaded', function() {
 
 
   function setTheme(dark){
+
+    // ACTUALIZAR ICONO DEL BOTÓN SEGÚN MODO
+
+    if(toggleThemeBtn) {
+
+      toggleThemeBtn.textContent = dark ? '🌙' : '☀️';
+
+      toggleThemeBtn.title = dark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
+
+    }
+
+    
 
     if(dark){
 
