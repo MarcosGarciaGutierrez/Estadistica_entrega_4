@@ -527,21 +527,21 @@ El mejor experimento, que podemos hacer con lo estudiado, es aquel que combina d
 
 
 
-
 # Comentarios
 
-
 ```{=html}
-<div id="comments">
-  <h2>💬 Comentarios</h2>
-  <script src="https://utteranc.es/client.js"
-          repo="MarcosGarciaGutierrez/Estadistica_entrega_4"
-          issue-term="pathname"
-          label="comentario"
-          theme="github-dark"
-          crossorigin="anonymous"
-          async>
-  </script>
-</div>
-``` 
+<div id="comments"></div>
+<script>
+  (function() {
+    var script = document.createElement('script');
+    script.src = 'https://utteranc.es/client.js';
+    script.setAttribute('repo', 'MarcosGarciaGutierrez/Estadistica_entrega_4');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('label', 'comentario');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+    script.async = true;
+    document.getElementById('comments').appendChild(script);
+  })();
+</script>
 # Bibliografia
