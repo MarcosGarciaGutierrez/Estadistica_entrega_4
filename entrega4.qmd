@@ -532,63 +532,18 @@ El mejor experimento, que podemos hacer con lo estudiado, es aquel que combina d
 ```{=html}
 <div id="comments"></div>
 <script>
-  // Función para obtener el tema actual de Quarto
-  function getQuartoTheme() {
-    const body = document.body;
-    const theme = body.getAttribute('data-quarto-theme') || 
-                  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    return theme === 'dark' ? 'github-dark' : 'github-light';
-  }
-
-  // Función para crear/cargar Utteranc.es con el tema correcto
-  function loadUtterances() {
-    const container = document.getElementById('comments');
-    const existingScript = container.querySelector('script');
-    if (existingScript) {
-      existingScript.remove();
-    }
-
-    const script = document.createElement('script');
+  (function() {
+    var script = document.createElement('script');
     script.src = 'https://utteranc.es/client.js';
     script.setAttribute('repo', 'MarcosGarciaGutierrez/Estadistica_entrega_4');
     script.setAttribute('issue-term', 'pathname');
     script.setAttribute('label', 'comentario');
-    script.setAttribute('theme', getQuartoTheme());
+    script.setAttribute('theme', 'github-dark');
     script.setAttribute('crossorigin', 'anonymous');
     script.async = true;
-
-    container.appendChild(script);
-  }
-
-  // Cargar al inicio
-  document.addEventListener('DOMContentLoaded', loadUtterances);
-
-  // Escuchar cambios de tema
-  const observer = new MutationObserver(loadUtterances);
-  observer.observe(document.body, {
-    attributes: true,
-    attributeFilter: ['data-quarto-theme']
-  });
+    document.getElementById('comments').appendChild(script);
+  })();
 </script>
-
-<style>
-  /* Hacer el contenedor transparente */
-  .utterances-frame {
-    background-color: transparent !important;
-  }
-  
-  /* Quitar borde */
-  #comments {
-    border: none !important;
-    padding: 0 !important;
-  }
-</style>
 ```
-
-
-
-
-
-
 
 # Bibliografia
