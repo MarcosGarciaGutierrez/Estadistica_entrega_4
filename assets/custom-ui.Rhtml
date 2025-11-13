@@ -1,7 +1,7 @@
 <!-- PANEL DE BÚSQUEDA -->
 <div id="search-panel" class="sidebar-search">
   <div class="search-logo">
-    <img src="https://vectorseek.com/wp-content/uploads/2023/08/Uclm-Black-Icon-Logo-Vector.svg-.png  " alt="Logo UCLM">
+    <img src="https://vectorseek.com/wp-content/uploads/2023/08/Uclm-Black-Icon-Logo-Vector.svg-.png   " alt="Logo UCLM">
   </div>
   <div class="search-divider"></div>
   <div class="search-and-nav">
@@ -690,7 +690,7 @@ window.addEventListener('DOMContentLoaded', function() {
 <div id="comments"></div>
 
 <script>
-// Carga de Utterances
+// === CARGA DE UTTERANCES CON TEMA FIJO SIEMPRE CLARO ===
 function loadUtterances() {
   const existingIframe = document.querySelector('#comments iframe');
   if (existingIframe) existingIframe.remove();
@@ -698,11 +698,11 @@ function loadUtterances() {
   const existingScript = document.querySelector('#comments script');
   if (existingScript) existingScript.remove();
 
-  const isDark = document.body.classList.contains('dark-mode');
-  const theme = isDark ? 'github-dark' : 'github-light';
+  // FORZAR TEMA CLARO SIEMPRE (NO CAMBIA CON MODO OSCURO)
+  const theme = 'github-light';
 
   const script = document.createElement('script');
-  script.src = 'https://utteranc.es/client.js ';
+  script.src = 'https://utteranc.es/client.js  ';
   script.setAttribute('repo', 'MarcosGarciaGutierrez/Estadistica_entrega_4');
   script.setAttribute('issue-term', 'pathname');
   script.setAttribute('label', 'comentario');
@@ -713,16 +713,11 @@ function loadUtterances() {
   document.getElementById('comments').appendChild(script);
 }
 
+// Cargar comentarios una sola vez al inicio
 loadUtterances();
 
-const toggleThemeBtn = document.getElementById('toggleThemeBtn');
-if (toggleThemeBtn) {
-  toggleThemeBtn.addEventListener('click', () => {
-    setTimeout(() => {
-      loadUtterances();
-    }, 50);
-  });
-}
+// === ELIMINADO: Recarga de comentarios al cambiar tema ===
+// Los comentarios ahora mantienen su color fijo
 </script>
 
 <!-- === BLOQUE 4: CARGA DE JSPDF === -->
@@ -734,13 +729,13 @@ if (toggleThemeBtn) {
   const maxRetries = 20;
   
   const script = document.createElement('script');
-  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js ';
   script.crossOrigin = 'anonymous';
   script.onload = () => console.log('✅ jsPDF cargado correctamente');
   script.onerror = () => {
     console.error('❌ Error CDN principal');
     const fallback = document.createElement('script');
-    fallback.src = 'https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js';
+    fallback.src = 'https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js ';
     fallback.crossOrigin = 'anonymous';
     fallback.onload = () => console.log('✅ jsPDF cargado desde fallback');
     document.head.appendChild(fallback);
@@ -909,7 +904,7 @@ function generateBibTeX() {
     const year = new Date().getFullYear().toString();
     
     // 4. URL FIJA (LA QUE PEDISTE)
-    const url = 'https://marcosgarciagutierrez.github.io/Estadistica_entrega_4';
+    const url = 'https://marcosgarciagutierrez.github.io/Estadistica_entrega_4 ';
     
     // 5. FECHA DE ACCESO
     const today = new Date().toISOString().slice(0, 10);

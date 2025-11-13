@@ -5215,7 +5215,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 <script>
 
-// Carga de Utterances
+// === CARGA DE UTTERANCES CON TEMA FIJO SIEMPRE CLARO ===
 
 function loadUtterances() {
 
@@ -5231,15 +5231,15 @@ function loadUtterances() {
 
 
 
-  const isDark = document.body.classList.contains('dark-mode');
+  // FORZAR TEMA CLARO SIEMPRE (NO CAMBIA CON MODO OSCURO)
 
-  const theme = isDark ? 'github-dark' : 'github-light';
+  const theme = 'github-light';
 
 
 
   const script = document.createElement('script');
 
-  script.src = 'https://utteranc.es/client.js ';
+  script.src = 'https://utteranc.es/client.js  ';
 
   script.setAttribute('repo', 'MarcosGarciaGutierrez/Estadistica_entrega_4');
 
@@ -5261,25 +5261,15 @@ function loadUtterances() {
 
 
 
+// Cargar comentarios una sola vez al inicio
+
 loadUtterances();
 
 
 
-const toggleThemeBtn = document.getElementById('toggleThemeBtn');
+// === ELIMINADO: Recarga de comentarios al cambiar tema ===
 
-if (toggleThemeBtn) {
-
-  toggleThemeBtn.addEventListener('click', () => {
-
-    setTimeout(() => {
-
-      loadUtterances();
-
-    }, 50);
-
-  });
-
-}
+// Los comentarios ahora mantienen su color fijo
 
 </script>
 
@@ -5303,7 +5293,7 @@ if (toggleThemeBtn) {
 
   const script = document.createElement('script');
 
-  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js ';
 
   script.crossOrigin = 'anonymous';
 
@@ -5315,7 +5305,7 @@ if (toggleThemeBtn) {
 
     const fallback = document.createElement('script');
 
-    fallback.src = 'https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js';
+    fallback.src = 'https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js ';
 
     fallback.crossOrigin = 'anonymous';
 
@@ -5653,7 +5643,7 @@ function generateBibTeX() {
 
     // 4. URL FIJA (LA QUE PEDISTE)
 
-    const url = 'https://marcosgarciagutierrez.github.io/Estadistica_entrega_4';
+    const url = 'https://marcosgarciagutierrez.github.io/Estadistica_entrega_4 ';
 
     
 
