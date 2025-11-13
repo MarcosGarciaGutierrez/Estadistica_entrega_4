@@ -25,6 +25,11 @@ jobs:
         
       - uses: quarto-dev/quarto-actions/setup@v2
       
+      - name: Configure Git
+        run: |
+          git config --global user.email "quarto@github.com"
+          git config --global user.name "GitHub Action"
+        
       - name: Render and Publish
         run: |
           quarto render
