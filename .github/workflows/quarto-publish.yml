@@ -7,6 +7,8 @@ name: Publish
 jobs:
   quarto-publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       
@@ -23,6 +25,9 @@ jobs:
         
       - uses: quarto-dev/quarto-actions/setup@v2
       
-      - uses: quarto-dev/quarto-actions/publish@v2
-        with:
-          target: gh-pages
+      - name: Render and Publish
+        run: |
+          quarto render
+          quarto publish gh-pages --no-prompt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
