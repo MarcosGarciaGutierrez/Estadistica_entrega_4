@@ -12,6 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: Configure Git
+        run: |
+          git config --global user.email "quarto@github.com"
+          git config --global user.name "GitHub Action"
+        
       - name: Install system dependencies
         run: |
           sudo apt-get update
@@ -25,14 +30,11 @@ jobs:
         
       - uses: quarto-dev/quarto-actions/setup@v2
       
-      - name: Configure Git
-        run: |
-          git config --global user.email "quarto@github.com"
-          git config --global user.name "GitHub Action"
+      - name: Render
+        run: quarto render entrega4.qmd --output-dir=docs
         
-      - name: Render and Publish
-        run: |
-          quarto render
-          quarto publish gh-pages --no-prompt
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
