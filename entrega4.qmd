@@ -528,23 +528,20 @@ El mejor experimento, que podemos hacer con lo estudiado, es aquel que combina d
 
 
 
-
+# Comentarios
 
 
 ```{=html}
-<script src="https://giscus.app/client.js"
-        data-repo="MarcosGarciaGutierrez/Estadistica_entrega_4"
-        data-repo-id="R_kgDOQUUFpA"
-        data-category-id="DIC_kwDOQUUFpM4CxuDW"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="es"
-        crossorigin="anonymous"
-        async>
-</script>
+<div id="comments">
+  <h2>💬 Comentarios</h2>
+  <script src="https://utteranc.es/client.js"
+          repo="MarcosGarciaGutierrez/Estadistica_entrega_4"
+          issue-term="pathname"
+          label="comentario"
+          theme="github-dark"
+          crossorigin="anonymous"
+          async>
+  </script>
+</div>
 ``` 
 # Bibliografia
