@@ -2533,9 +2533,9 @@ lm.default(formula = Tiempo ~ (a + c + f)^3, data = DiseñoR)
 
 Coefficients:
 (Intercept)           a1           c1           f1        a1:c1        a1:f1  
-    5.48063      0.33312     -0.03188      0.13187      0.15063      0.07938  
+    5.48062      0.33313     -0.03187      0.13188      0.15063      0.07938  
       c1:f1     a1:c1:f1  
-   -0.21062     -0.18813  </code></pre>
+   -0.21063     -0.18813  </code></pre>
 </div>
 </div>
 <p>El efecto más fuerte y positivo proviene de <strong>a</strong>, seguido por <strong>f</strong> y <strong>a:c</strong>, que tienen impactos menores. Las interacciones <strong>c:f</strong> y <strong>a:c:f</strong> generan los efectos negativos más notables, aunque siguen siendo mucho menos influyentes que <strong>a</strong>.</p>
@@ -2627,9 +2627,9 @@ lm.default(formula = Tiempo ~ (a + c + f)^3 + Grupo, data = DiseñoR)
 
 Coefficients:
 (Intercept)           a1           c1           f1      Grupo.2        a1:c1  
-    5.85625      0.33312     -0.03188      0.13187     -0.75125      0.15063  
+    5.85625      0.33313     -0.03187      0.13188     -0.75125      0.15062  
       a1:f1        c1:f1     a1:c1:f1  
-    0.07938     -0.21062     -0.18813  </code></pre>
+    0.07937     -0.21062     -0.18813  </code></pre>
 </div>
 </div>
 <p>El modelo indica que el factor <strong>a</strong> tiene el efecto positivo más fuerte sobre el tiempo, seguido por <strong>f</strong>, mientras que c apenas influye. El Grupo.2 reduce significativamente el tiempo, mostrando un desempeño más rápido. Las interacciones <strong>a:c</strong> y <strong>a:f</strong> son levemente positivas, mientras que <strong>c:f</strong> y <strong>a:c:f</strong> son negativas, lo que sugiere que la combinación de los tres factores atenúa el incremento del tiempo producido por <strong>a</strong>.</p>
