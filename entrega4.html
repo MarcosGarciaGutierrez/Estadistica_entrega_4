@@ -2533,9 +2533,9 @@ lm.default(formula = Tiempo ~ (a + c + f)^3, data = DiseñoR)
 
 Coefficients:
 (Intercept)           a1           c1           f1        a1:c1        a1:f1  
-    5.48063      0.33312     -0.03188      0.13187      0.15063      0.07938  
+    5.48062      0.33313     -0.03187      0.13188      0.15063      0.07938  
       c1:f1     a1:c1:f1  
-   -0.21062     -0.18813  </code></pre>
+   -0.21063     -0.18813  </code></pre>
 </div>
 </div>
 <p>El efecto más fuerte y positivo proviene de <strong>a</strong>, seguido por <strong>f</strong> y <strong>a:c</strong>, que tienen impactos menores. Las interacciones <strong>c:f</strong> y <strong>a:c:f</strong> generan los efectos negativos más notables, aunque siguen siendo mucho menos influyentes que <strong>a</strong>.</p>
@@ -2627,9 +2627,9 @@ lm.default(formula = Tiempo ~ (a + c + f)^3 + Grupo, data = DiseñoR)
 
 Coefficients:
 (Intercept)           a1           c1           f1      Grupo.2        a1:c1  
-    5.85625      0.33312     -0.03188      0.13187     -0.75125      0.15063  
+    5.85625      0.33313     -0.03187      0.13188     -0.75125      0.15062  
       a1:f1        c1:f1     a1:c1:f1  
-    0.07938     -0.21062     -0.18813  </code></pre>
+    0.07937     -0.21062     -0.18813  </code></pre>
 </div>
 </div>
 <p>El modelo indica que el factor <strong>a</strong> tiene el efecto positivo más fuerte sobre el tiempo, seguido por <strong>f</strong>, mientras que c apenas influye. El Grupo.2 reduce significativamente el tiempo, mostrando un desempeño más rápido. Las interacciones <strong>a:c</strong> y <strong>a:f</strong> son levemente positivas, mientras que <strong>c:f</strong> y <strong>a:c:f</strong> son negativas, lo que sugiere que la combinación de los tres factores atenúa el incremento del tiempo producido por <strong>a</strong>.</p>
@@ -3361,22 +3361,58 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 </section>
 <section id="comentarios" class="level1">
 <h1>Comentarios</h1>
-<div id="comments">
-
-</div>
+<div id="comments"></div>
 <script>
-  (function() {
-    var script = document.createElement('script');
+  // Función para obtener el tema actual de Quarto
+  function getQuartoTheme() {
+    const body = document.body;
+    const theme = body.getAttribute('data-quarto-theme') || 
+                  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    return theme === 'dark' ? 'github-dark' : 'github-light';
+  }
+
+  // Función para crear/cargar Utteranc.es con el tema correcto
+  function loadUtterances() {
+    const container = document.getElementById('comments');
+    const existingScript = container.querySelector('script');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const script = document.createElement('script');
     script.src = 'https://utteranc.es/client.js';
     script.setAttribute('repo', 'MarcosGarciaGutierrez/Estadistica_entrega_4');
     script.setAttribute('issue-term', 'pathname');
     script.setAttribute('label', 'comentario');
-    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('theme', getQuartoTheme());
     script.setAttribute('crossorigin', 'anonymous');
     script.async = true;
-    document.getElementById('comments').appendChild(script);
-  })();
+
+    container.appendChild(script);
+  }
+
+  // Cargar al inicio
+  document.addEventListener('DOMContentLoaded', loadUtterances);
+
+  // Escuchar cambios de tema
+  const observer = new MutationObserver(loadUtterances);
+  observer.observe(document.body, {
+    attributes: true,
+    attributeFilter: ['data-quarto-theme']
+  });
 </script>
+
+<style>
+
+.utterances-frame {
+background-color: transparent !important;
+}
+
+#comments {
+border: none !important;
+padding: 0 !important;
+}
+</style>
 </section>
 <section id="bibliografia" class="level1">
 
@@ -4975,19 +5011,66 @@ window.addEventListener('DOMContentLoaded', function() {
 <span id="cb74-543"><a href="#cb74-543" aria-hidden="true" tabindex="-1"></a><span class="st">```</span><span class="at">{=html}</span></span>
 <span id="cb74-544"><a href="#cb74-544" aria-hidden="true" tabindex="-1"></a><span class="at">&lt;div id=&quot;comments&quot;&gt;&lt;/div&gt;</span></span>
 <span id="cb74-545"><a href="#cb74-545" aria-hidden="true" tabindex="-1"></a><span class="at">&lt;script&gt;</span></span>
-<span id="cb74-546"><a href="#cb74-546" aria-hidden="true" tabindex="-1"></a><span class="at">  (function() {</span></span>
-<span id="cb74-547"><a href="#cb74-547" aria-hidden="true" tabindex="-1"></a><span class="at">    var script = document.createElement(&#39;script&#39;);</span></span>
-<span id="cb74-548"><a href="#cb74-548" aria-hidden="true" tabindex="-1"></a><span class="at">    script.src = &#39;https://utteranc.es/client.js&#39;;</span></span>
-<span id="cb74-549"><a href="#cb74-549" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;repo&#39;, &#39;MarcosGarciaGutierrez/Estadistica_entrega_4&#39;);</span></span>
-<span id="cb74-550"><a href="#cb74-550" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;issue-term&#39;, &#39;pathname&#39;);</span></span>
-<span id="cb74-551"><a href="#cb74-551" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;label&#39;, &#39;comentario&#39;);</span></span>
-<span id="cb74-552"><a href="#cb74-552" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;theme&#39;, &#39;github-dark&#39;);</span></span>
-<span id="cb74-553"><a href="#cb74-553" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;crossorigin&#39;, &#39;anonymous&#39;);</span></span>
-<span id="cb74-554"><a href="#cb74-554" aria-hidden="true" tabindex="-1"></a><span class="at">    script.async = true;</span></span>
-<span id="cb74-555"><a href="#cb74-555" aria-hidden="true" tabindex="-1"></a><span class="at">    document.getElementById(&#39;comments&#39;).appendChild(script);</span></span>
-<span id="cb74-556"><a href="#cb74-556" aria-hidden="true" tabindex="-1"></a><span class="at">  })();</span></span>
-<span id="cb74-557"><a href="#cb74-557" aria-hidden="true" tabindex="-1"></a><span class="at">&lt;/script&gt;</span></span>
-<span id="cb74-558"><a href="#cb74-558" aria-hidden="true" tabindex="-1"></a><span class="at"># Bibliografia</span></span>
+<span id="cb74-546"><a href="#cb74-546" aria-hidden="true" tabindex="-1"></a><span class="at">  // Función para obtener el tema actual de Quarto</span></span>
+<span id="cb74-547"><a href="#cb74-547" aria-hidden="true" tabindex="-1"></a><span class="at">  function getQuartoTheme() {</span></span>
+<span id="cb74-548"><a href="#cb74-548" aria-hidden="true" tabindex="-1"></a><span class="at">    const body = document.body;</span></span>
+<span id="cb74-549"><a href="#cb74-549" aria-hidden="true" tabindex="-1"></a><span class="at">    const theme = body.getAttribute(&#39;data-quarto-theme&#39;) || </span></span>
+<span id="cb74-550"><a href="#cb74-550" aria-hidden="true" tabindex="-1"></a><span class="at">                  (window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;).matches ? &#39;dark&#39; : &#39;light&#39;);</span></span>
+<span id="cb74-551"><a href="#cb74-551" aria-hidden="true" tabindex="-1"></a><span class="at">    return theme === &#39;dark&#39; ? &#39;github-dark&#39; : &#39;github-light&#39;;</span></span>
+<span id="cb74-552"><a href="#cb74-552" aria-hidden="true" tabindex="-1"></a><span class="at">  }</span></span>
+<span id="cb74-553"><a href="#cb74-553" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-554"><a href="#cb74-554" aria-hidden="true" tabindex="-1"></a><span class="at">  // Función para crear/cargar Utteranc.es con el tema correcto</span></span>
+<span id="cb74-555"><a href="#cb74-555" aria-hidden="true" tabindex="-1"></a><span class="at">  function loadUtterances() {</span></span>
+<span id="cb74-556"><a href="#cb74-556" aria-hidden="true" tabindex="-1"></a><span class="at">    const container = document.getElementById(&#39;comments&#39;);</span></span>
+<span id="cb74-557"><a href="#cb74-557" aria-hidden="true" tabindex="-1"></a><span class="at">    const existingScript = container.querySelector(&#39;script&#39;);</span></span>
+<span id="cb74-558"><a href="#cb74-558" aria-hidden="true" tabindex="-1"></a><span class="at">    if (existingScript) {</span></span>
+<span id="cb74-559"><a href="#cb74-559" aria-hidden="true" tabindex="-1"></a><span class="at">      existingScript.remove();</span></span>
+<span id="cb74-560"><a href="#cb74-560" aria-hidden="true" tabindex="-1"></a><span class="at">    }</span></span>
+<span id="cb74-561"><a href="#cb74-561" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-562"><a href="#cb74-562" aria-hidden="true" tabindex="-1"></a><span class="at">    const script = document.createElement(&#39;script&#39;);</span></span>
+<span id="cb74-563"><a href="#cb74-563" aria-hidden="true" tabindex="-1"></a><span class="at">    script.src = &#39;https://utteranc.es/client.js&#39;;</span></span>
+<span id="cb74-564"><a href="#cb74-564" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;repo&#39;, &#39;MarcosGarciaGutierrez/Estadistica_entrega_4&#39;);</span></span>
+<span id="cb74-565"><a href="#cb74-565" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;issue-term&#39;, &#39;pathname&#39;);</span></span>
+<span id="cb74-566"><a href="#cb74-566" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;label&#39;, &#39;comentario&#39;);</span></span>
+<span id="cb74-567"><a href="#cb74-567" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;theme&#39;, getQuartoTheme());</span></span>
+<span id="cb74-568"><a href="#cb74-568" aria-hidden="true" tabindex="-1"></a><span class="at">    script.setAttribute(&#39;crossorigin&#39;, &#39;anonymous&#39;);</span></span>
+<span id="cb74-569"><a href="#cb74-569" aria-hidden="true" tabindex="-1"></a><span class="at">    script.async = true;</span></span>
+<span id="cb74-570"><a href="#cb74-570" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-571"><a href="#cb74-571" aria-hidden="true" tabindex="-1"></a><span class="at">    container.appendChild(script);</span></span>
+<span id="cb74-572"><a href="#cb74-572" aria-hidden="true" tabindex="-1"></a><span class="at">  }</span></span>
+<span id="cb74-573"><a href="#cb74-573" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-574"><a href="#cb74-574" aria-hidden="true" tabindex="-1"></a><span class="at">  // Cargar al inicio</span></span>
+<span id="cb74-575"><a href="#cb74-575" aria-hidden="true" tabindex="-1"></a><span class="at">  document.addEventListener(&#39;DOMContentLoaded&#39;, loadUtterances);</span></span>
+<span id="cb74-576"><a href="#cb74-576" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-577"><a href="#cb74-577" aria-hidden="true" tabindex="-1"></a><span class="at">  // Escuchar cambios de tema</span></span>
+<span id="cb74-578"><a href="#cb74-578" aria-hidden="true" tabindex="-1"></a><span class="at">  const observer = new MutationObserver(loadUtterances);</span></span>
+<span id="cb74-579"><a href="#cb74-579" aria-hidden="true" tabindex="-1"></a><span class="at">  observer.observe(document.body, {</span></span>
+<span id="cb74-580"><a href="#cb74-580" aria-hidden="true" tabindex="-1"></a><span class="at">    attributes: true,</span></span>
+<span id="cb74-581"><a href="#cb74-581" aria-hidden="true" tabindex="-1"></a><span class="at">    attributeFilter: [&#39;data-quarto-theme&#39;]</span></span>
+<span id="cb74-582"><a href="#cb74-582" aria-hidden="true" tabindex="-1"></a><span class="at">  });</span></span>
+<span id="cb74-583"><a href="#cb74-583" aria-hidden="true" tabindex="-1"></a><span class="at">&lt;/script&gt;</span></span>
+<span id="cb74-584"><a href="#cb74-584" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-585"><a href="#cb74-585" aria-hidden="true" tabindex="-1"></a><span class="at">&lt;style&gt;</span></span>
+<span id="cb74-586"><a href="#cb74-586" aria-hidden="true" tabindex="-1"></a><span class="at">  /* Hacer el contenedor transparente */</span></span>
+<span id="cb74-587"><a href="#cb74-587" aria-hidden="true" tabindex="-1"></a><span class="at">  .utterances-frame {</span></span>
+<span id="cb74-588"><a href="#cb74-588" aria-hidden="true" tabindex="-1"></a><span class="at">    background-color: transparent !important;</span></span>
+<span id="cb74-589"><a href="#cb74-589" aria-hidden="true" tabindex="-1"></a><span class="at">  }</span></span>
+<span id="cb74-590"><a href="#cb74-590" aria-hidden="true" tabindex="-1"></a><span class="at">  </span></span>
+<span id="cb74-591"><a href="#cb74-591" aria-hidden="true" tabindex="-1"></a><span class="at">  /* Quitar borde */</span></span>
+<span id="cb74-592"><a href="#cb74-592" aria-hidden="true" tabindex="-1"></a><span class="at">  #comments {</span></span>
+<span id="cb74-593"><a href="#cb74-593" aria-hidden="true" tabindex="-1"></a><span class="at">    border: none !important;</span></span>
+<span id="cb74-594"><a href="#cb74-594" aria-hidden="true" tabindex="-1"></a><span class="at">    padding: 0 !important;</span></span>
+<span id="cb74-595"><a href="#cb74-595" aria-hidden="true" tabindex="-1"></a><span class="at">  }</span></span>
+<span id="cb74-596"><a href="#cb74-596" aria-hidden="true" tabindex="-1"></a><span class="at">&lt;/style&gt;</span></span>
+<span id="cb74-597"><a href="#cb74-597" aria-hidden="true" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb74-598"><a href="#cb74-598" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-599"><a href="#cb74-599" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-600"><a href="#cb74-600" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-601"><a href="#cb74-601" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-602"><a href="#cb74-602" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-603"><a href="#cb74-603" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-604"><a href="#cb74-604" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-605"><a href="#cb74-605" aria-hidden="true" tabindex="-1"></a><span class="co"># Bibliografia</span></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
